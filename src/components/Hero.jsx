@@ -10,46 +10,46 @@ export default function Hero() {
   };
 
   return (
-    <section className="h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 pb-20 relative overflow-hidden bg-primary">
+    <section className="min-h-[85vh] flex items-center justify-center px-4 sm:px-6 md:px-8 py-16 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       {/* Animated background gradient orbs */}
       <motion.div 
-        className="absolute w-[500px] h-[500px] bg-gradient-to-br from-primary/30 to-primary-dark/30 rounded-lg blur-3xl"
+        className="absolute w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
         animate={{
-          x: [0, 100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.2, 1],
+          x: [0, 80, 0],
+          y: [0, -60, 0],
+          scale: [1, 1.15, 1],
         }}
         transition={{
-          duration: 50,
+          duration: 20,
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        style={{ top: '-10%', left: '-10%' }}
+        style={{ top: '-15%', left: '-15%' }}
       />
       
       <motion.div 
-        className="absolute w-[400px] h-[400px] bg-gradient-to-br from-primary-dark/30 to-primary/30 rounded-lg blur-3xl"
+        className="absolute w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl"
         animate={{
-          x: [0, -100, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.3, 1],
+          x: [0, -80, 0],
+          y: [0, 60, 0],
+          scale: [1, 1.2, 1],
         }}
         transition={{
-          duration: 100,
+          duration: 25,
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        style={{ bottom: '-10%', right: '-10%' }}
+        style={{ bottom: '-15%', right: '-15%' }}
       />
 
       <motion.div 
-        className="absolute w-[300px] h-[300px] bg-white/10 rounded-lg blur-3xl"
+        className="absolute w-[400px] h-[400px] bg-gradient-to-br from-primary/25 to-cyan-400/25 rounded-full blur-3xl"
         animate={{
-          scale: [1, 1.5, 1],
-          opacity: [0.3, 0.5, 0.3],
+          scale: [1, 1.3, 1],
+          opacity: [0.4, 0.6, 0.4],
         }}
         transition={{
-          duration: 15,
+          duration: 18,
           repeat: Infinity,
           ease: "easeInOut"
         }}
@@ -60,11 +60,11 @@ export default function Hero() {
       {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-white/30 rounded-lg"
+          className="absolute w-1 h-1 bg-cyan-300/40 rounded-full"
           animate={{
             y: [0, -1000],
             x: [0, Math.random() * 200 - 100],
-            opacity: [0, 1, 0],
+            opacity: [0, 0.8, 0],
           }}
           transition={{
             duration: Math.random() * 10 + 10,
@@ -89,7 +89,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <motion.span
-            className="inline-block bg-gradient-to-r from-white via-primary to-white bg-clip-text text-transparent"
+            className="inline-block bg-gradient-to-r from-white via-cyan-100 to-white bg-clip-text text-transparent drop-shadow-lg"
             animate={{
               backgroundPosition: ['0%', '100%', '0%'],
             }}
@@ -134,17 +134,17 @@ export default function Hero() {
             <motion.div
               key={idx}
               whileHover={{ scale: 1.05, y: -2 }}
-              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg"
+              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg shadow-lg"
             >
-              <feature.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
-              <span className="text-xs sm:text-sm text-white/90">{feature.text}</span>
+              <feature.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-300" />
+              <span className="text-xs sm:text-sm text-white font-medium">{feature.text}</span>
             </motion.div>
           ))}
         </motion.div>
         
         {/* CTA Buttons */}
         <motion.div 
-          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-12 w-full sm:w-auto px-4 sm:px-0"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-12 sm:mb-16 w-full sm:w-auto px-4 sm:px-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
@@ -182,7 +182,7 @@ export default function Hero() {
               {/* Scroll indicator with animation - positioned at bottom center */}
       <motion.button
         onClick={scrollToProduct}
-        className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 cursor-pointer bg-transparent border-none outline-none z-20"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 cursor-pointer bg-transparent border-none outline-none z-20"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         whileHover={{ scale: 1.2 }}

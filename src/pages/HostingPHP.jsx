@@ -71,7 +71,7 @@ export default function HostingPHP() {
   ];
 
   const domainTypes = [
-    { value: 'subdomain', label: 'Subdomain Gratis (namaanda.lowcosthost.id)' },
+    { value: 'subdomain', label: 'Subdomain Gratis' },
     { value: 'custom', label: 'Domain Kustom (namaanda.com)' }
   ];
 
@@ -276,7 +276,7 @@ export default function HostingPHP() {
                 />
                 {formData.domainType === 'subdomain' && (
                   <span className="flex items-center px-4 py-3 bg-gray-100 text-gray-600 rounded-lg border-2 border-gray-200">
-                    .lowcosthost.id
+                    .domain-utama
                   </span>
                 )}
               </div>

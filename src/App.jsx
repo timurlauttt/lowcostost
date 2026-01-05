@@ -12,7 +12,6 @@ function App() {
     <div className="antialiased bg-white">
       <Navbar />
       <Hero />
-      <TestimonialCarousel />
       <PricingCards />
       <FeatureGrid />
       <ContactSection />
