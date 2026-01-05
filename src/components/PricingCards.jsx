@@ -1,0 +1,172 @@
+import { motion } from 'framer-motion';
+import { Check, Sparkles } from 'lucide-react';
+
+export default function PricingCards() {
+  const packages = [
+    {
+      name: 'Paket Starter',
+      price: '15.000',
+      period: '/bulan',
+      description: 'Cocok untuk website personal & blog',
+      popular: false,
+      features: [
+        '1 GB SSD Storage',
+        '10 GB Bandwidth',
+        '1 Domain',
+        'SSL Gratis',
+        'Email Support'
+      ]
+    },
+    {
+      name: 'Paket Bisnis',
+      price: '50.000',
+      period: '/bulan',
+      description: 'Untuk UMKM & toko online',
+      popular: true,
+      badge: 'Paling Populer',
+      features: [
+        '5 GB SSD Storage',
+        'Unlimited Bandwidth',
+        '5 Domain',
+        'SSL Gratis',
+        'Backup Harian',
+        'Priority Support 24/7'
+      ]
+    },
+    {
+      name: 'Paket Enterprise',
+      price: '150.000',
+      period: '/bulan',
+      description: 'Untuk perusahaan & aplikasi besar',
+      popular: false,
+      features: [
+        '20 GB SSD Storage',
+        'Unlimited Bandwidth',
+        'Unlimited Domain',
+        'SSL Gratis',
+        'Backup Harian',
+        'Dedicated Support',
+        'Free Migration'
+      ]
+    }
+  ];
+
+  return (
+    <section id='pricing' className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12 sm:mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-4">
+            Paket Hosting Terbaik
+          </h2>
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+            Pilih paket sesuai kebutuhan Anda, semua dengan harga terjangkau
+          </p>
+        </motion.div>
+
+        {/* Pricing Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {packages.map((pkg, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              whileHover={{ y: -10 }}
+              className={`relative p-8 rounded-lg border-2 transition-all duration-300 ${
+                pkg.popular
+                  ? 'bg-gradient-to-br from-primary via-primary-dark to-primary border-primary shadow-2xl shadow-primary/30 scale-105'
+                  : 'bg-white border-gray-200 hover:border-primary/50 hover:shadow-xl'
+              }`}
+            >
+              {/* Popular Badge */}
+              {pkg.popular && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ type: 'spring', delay: 0.3 }}
+                  className="absolute -top-4 left-1/2 -translate-x-1/2"
+                >
+                  <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-lg">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-bold text-primary-dark">{pkg.badge}</span>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Package Header */}
+              <div className={`mb-6 ${pkg.popular ? 'text-white' : 'text-primary-dark'}`}>
+                <h3 className="text-2xl font-bold mb-2">{pkg.name}</h3>
+                <p className={`text-sm ${pkg.popular ? 'text-white/80' : 'text-gray-600'}`}>
+                  {pkg.description}
+                </p>
+              </div>
+
+              {/* Price */}
+              <div className={`mb-6 ${pkg.popular ? 'text-white' : 'text-primary-dark'}`}>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-lg font-semibold">Rp</span>
+                  <span className="text-5xl font-black">{pkg.price}</span>
+                  <span className={`text-lg ${pkg.popular ? 'text-white/70' : 'text-gray-500'}`}>
+                    {pkg.period}
+                  </span>
+                </div>
+              </div>
+
+              {/* Features List */}
+              <ul className="space-y-3 mb-8">
+                {pkg.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <div className={`flex-shrink-0 w-5 h-5 rounded-lg flex items-center justify-center ${
+                      pkg.popular ? 'bg-white' : 'bg-primary'
+                    }`}>
+                      <Check className={`w-3 h-3 ${pkg.popular ? 'text-white' : 'text-primary'}`} />
+                    </div>
+                    <span className={`text-sm ${pkg.popular ? 'text-white/90' : 'text-gray-700'}`}>
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA Button */}
+              <motion.a
+                href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20order%20paket%20hosting"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`block w-full py-3 px-6 rounded-lg font-bold text-center transition-all duration-300 ${
+                  pkg.popular
+                    ? 'bg-white text-primary-dark hover:shadow-xl hover:shadow-white/20'
+                    : 'bg-primary text-white hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30'
+                }`}
+              >
+                Pilih Paket
+              </motion.a>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Domain Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center p-6 bg-primary/5 rounded-lg border border-primary/20"
+        >
+          <p className="text-gray-700">
+            <span className="font-bold text-primary-dark">Domain mulai Rp 10.000/tahun</span> — 
+            Dapatkan diskon spesial saat bundling dengan paket hosting!
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
