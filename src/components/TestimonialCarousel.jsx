@@ -82,7 +82,7 @@ export default function TestimonialCarousel() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4">
@@ -105,7 +105,7 @@ export default function TestimonialCarousel() {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ delay: index * 0.1 }}
                     className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 sm:p-8 h-full"
                   >

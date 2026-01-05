@@ -62,7 +62,7 @@ export default function ContactSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-4">
@@ -78,7 +78,7 @@ export default function ContactSection() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -154,7 +154,7 @@ export default function ContactSection() {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             className="space-y-6"
           >
             {/* Contact Cards */}
@@ -166,7 +166,7 @@ export default function ContactSection() {
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.02, boxShadow: '0 10px 30px rgba(56, 189, 248, 0.2)' }}
                 className="flex items-center gap-4 p-6 bg-white rounded-lg border-2 border-gray-200 hover:border-primary/50 transition-all"
@@ -185,7 +185,7 @@ export default function ContactSection() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               className="p-8 bg-gradient-to-br from-primary/10 to-primary-dark/10 rounded-lg border-2 border-primary/20"
             >
               <h3 className="font-bold text-primary-dark text-xl mb-4">

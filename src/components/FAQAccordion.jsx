@@ -39,7 +39,7 @@ export default function FAQAccordion() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-dark mb-4">
@@ -57,7 +57,7 @@ export default function FAQAccordion() {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: index * 0.1 }}
               className="border-2 border-gray-200 rounded-lg overflow-hidden hover:border-primary/30 transition-colors"
             >
@@ -98,7 +98,7 @@ export default function FAQAccordion() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mt-12 text-center p-6 bg-gradient-to-r from-primary/10 to-primary-dark/10 rounded-lg"
         >
           <p className="text-gray-700 mb-4">

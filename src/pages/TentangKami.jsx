@@ -151,7 +151,7 @@ export default function TentangKami() {
                 key={index}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
                 className="text-center p-6 bg-gradient-to-br from-gray-50 to-white rounded-lg border-2 border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all duration-300"
@@ -180,7 +180,7 @@ export default function TentangKami() {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-dark mb-6">
@@ -202,7 +202,7 @@ export default function TentangKami() {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6 }}
               className="relative"
             >
@@ -212,7 +212,7 @@ export default function TentangKami() {
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ scale: 1.05, rotate: 2 }}
                     className="p-6 bg-white rounded-lg border-2 border-gray-100 hover:border-primary/30 hover:shadow-xl transition-all"
@@ -234,7 +234,7 @@ export default function TentangKami() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             className="text-center mb-12"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-dark mb-4">
@@ -251,7 +251,7 @@ export default function TentangKami() {
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: index * 0.2 }}
                 whileHover={{ y: -10 }}
                 className="relative group"
@@ -284,7 +284,7 @@ export default function TentangKami() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             className="text-center mb-12"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-dark mb-4">
@@ -301,7 +301,7 @@ export default function TentangKami() {
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: index * 0.15 }}
                 whileHover={{ y: -15, scale: 1.02 }}
                 className="relative group"
@@ -394,7 +394,7 @@ export default function TentangKami() {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ type: 'spring' }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 leading-tight">

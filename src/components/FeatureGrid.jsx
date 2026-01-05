@@ -48,7 +48,7 @@ export default function FeatureGrid() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-4">
@@ -66,7 +66,7 @@ export default function FeatureGrid() {
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(56, 189, 248, 0.2)' }}
               className="group p-6 sm:p-8 bg-gradient-to-br from-gray-50 to-white rounded-lg border-2 border-gray-100 hover:border-primary/30 transition-all duration-300"
