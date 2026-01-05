@@ -107,16 +107,15 @@ export default function Pricing() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-primary via-primary-dark to-primary relative overflow-hidden">
+      <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-primary to-primary-dark relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
         </div>
         
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="inline-block px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg mb-6"
           >
             <span className="text-lg font-bold text-white">Daftar Harga</span>

@@ -79,43 +79,15 @@ export default function TentangKami() {
       <Navbar />
 
       {/* Hero Section with Animation */}
-      <section className="py-20 sm:py-32 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-primary via-primary-dark to-primary relative overflow-hidden">
-        {/* Animated Background Elements */}
-        <motion.div 
-          className="absolute w-96 h-96 bg-white/10 rounded-lg blur-3xl"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          style={{ top: '-10%', left: '-10%' }}
-        />
-        
-        <motion.div 
-          className="absolute w-72 h-72 bg-white/5 rounded-lg blur-3xl"
-          animate={{
-            x: [0, -80, 0],
-            y: [0, 80, 0],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          style={{ bottom: '-10%', right: '-10%' }}
-        />
+      <section className="py-20 sm:py-32 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-primary to-primary-dark relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+        </div>
 
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg mb-6"
           >
             <Award className="w-5 h-5 text-white" />
