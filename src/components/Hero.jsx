@@ -110,7 +110,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <p className="text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white font-bold mb-2 sm:mb-3 leading-tight">
+          <p className="text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white font-semibold sm:font-md mb-2 sm:mb-3 leading-tight">
             Digital Solutions Without Barriers
           </p>
           

@@ -4,49 +4,52 @@ import { Check, Sparkles } from 'lucide-react';
 export default function PricingCards() {
   const packages = [
     {
-      name: 'Paket Starter',
-      price: '15.000',
-      period: '/bulan',
-      description: 'Cocok untuk website personal & blog',
+      name: 'Paket 12 Bulan Medium',
+      price: '750.000',
+      period: '/tahun',
+      description: 'Hosting Medium + Domain .my.id',
       popular: false,
       features: [
-        '1 GB SSD Storage',
-        '10 GB Bandwidth',
-        '1 Domain',
+        'Max File 1GB',
+        'Free Domain .my.id',
         'SSL Gratis',
-        'Email Support'
+        'Email Support 24/7',
+        'Control Panel',
+        'Backup Harian',
+        'Free Migration'
       ]
     },
     {
-      name: 'Paket Bisnis',
+      name: 'Hosting PHP Bulanan',
       price: '50.000',
       period: '/bulan',
-      description: 'Untuk UMKM & toko online',
+      description: 'Paket Small + Subdomain Gratis',
       popular: true,
       badge: 'Paling Populer',
       features: [
-        '5 GB SSD Storage',
-        'Unlimited Bandwidth',
-        '5 Domain',
+        'Max File 512MB',
+        'Free Subdomain .jeniso.com',
         'SSL Gratis',
-        'Backup Harian',
-        'Priority Support 24/7'
+        'Email Support',
+        'Control Panel',
+        'Backup Berkala'
       ]
     },
     {
-      name: 'Paket Enterprise',
-      price: '150.000',
-      period: '/bulan',
-      description: 'Untuk perusahaan & aplikasi besar',
+      name: 'Paket 12 Bulan Large',
+      price: '1.000.000',
+      period: '/tahun',
+      description: 'Hosting Large + Domain .com',
       popular: false,
       features: [
-        '20 GB SSD Storage',
-        'Unlimited Bandwidth',
-        'Unlimited Domain',
+        'Max File 2GB',
+        'Free Domain .com',
         'SSL Gratis',
+        'Priority Support 24/7',
+        'Control Panel',
         'Backup Harian',
-        'Dedicated Support',
-        'Free Migration'
+        'Free Migration',
+        'WhatsApp Support'
       ]
     }
   ];

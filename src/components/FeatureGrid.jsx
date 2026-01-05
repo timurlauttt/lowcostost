@@ -4,41 +4,35 @@ import { Shield, Zap, HeadphonesIcon, HardDrive, Lock, RefreshCcw } from 'lucide
 export default function FeatureGrid() {
   const features = [
     {
-      icon: Shield,
-      title: 'SSL Gratis',
-      description: 'Keamanan maksimal dengan sertifikat SSL gratis selamanya',
-      color: 'from-primary to-primary-dark'
-    },
-    {
-      icon: HardDrive,
-      title: 'Backup Harian',
-      description: 'Data Anda aman dengan backup otomatis setiap hari',
+      icon: RefreshCcw,
+      title: 'Setup Instan',
+      description: 'Website langsung aktif tanpa perlu konfigurasi rumit',
       color: 'from-primary-dark to-primary'
     },
     {
+      icon: Shield,
+      title: 'SSL Otomatis',
+      description: 'Sertifikat SSL langsung terpasang, tanpa ribet install manual',
+      color: 'from-primary to-primary-dark'
+    },
+    {
       icon: HeadphonesIcon,
-      title: 'Support 24/7',
-      description: 'Tim support siap membantu kapan saja via WA & email',
+      title: 'Support Ramah',
+      description: 'Bantuan cepat dan mudah dipahami, tanpa istilah teknis ribet',
       color: 'from-primary to-primary-dark'
     },
     {
       icon: Zap,
-      title: 'Server Cepat',
-      description: 'Performa maksimal dengan teknologi SSD & LiteSpeed',
+      title: 'Performa Stabil',
+      description: 'Website cepat dan stabil, tanpa perlu optimasi manual',
       color: 'from-primary-dark to-primary'
     },
     {
       icon: Lock,
-      title: 'Privacy Terjaga',
-      description: 'Data privasi dan keamanan pelanggan prioritas utama',
+      title: 'Keamanan Terjamin',
+      description: 'Perlindungan lengkap aktif otomatis, tanpa setup rumit',
       color: 'from-primary to-primary-dark'
     },
-    {
-      icon: RefreshCcw,
-      title: 'Migrasi Gratis',
-      description: 'Pindah hosting tanpa ribet, kami bantu gratis!',
-      color: 'from-primary-dark to-primary'
-    }
   ];
 
   return (
@@ -60,7 +54,7 @@ export default function FeatureGrid() {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}

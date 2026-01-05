@@ -10,6 +10,7 @@ export default function Navbar() {
   const menuItems = [
     { name: 'Beranda', href: '/', external: false },
     { name: 'Produk', href: '/#pricing', external: false },
+    { name: 'Harga', href: '/pricing', external: false },
     { name: 'Keunggulan', href: '/#features', external: false },
     { name: 'Kontak', href: '/#contact', external: false },
     { name: 'Tentang Kami', href: '/tentang-kami', external: false },
@@ -96,7 +97,7 @@ export default function Navbar() {
               to="/hosting"
               className="px-6 py-2.5 bg-white text-primary-dark font-bold rounded-lg hover:shadow-lg hover:shadow-white/30 transition-all inline-block"
             >
-              Daftar Hosting
+              Hosting Sekarang
             </Link>
           </motion.div>
         </div>
