@@ -18,25 +18,25 @@ export default function Pricing() {
         {
           duration: '1 Bulan',
           packages: [
-            { name: 'Small-Hosting-1 bln', spec: 'Max File 512 Mb', price: '50.000' },
-            { name: 'Medium-Hosting-1 bln', spec: 'Max File 1 Gb', price: '75.000' },
-            { name: 'Large-Hosting-1 bln', spec: 'Max File 2 Gb', price: '100.000' }
+            { name: 'Small-Hosting-1 bulan', spec: 'Max File 512 Mb', price: '50.000' },
+            { name: 'Medium-Hosting-1 bulan', spec: 'Max File 1 Gb', price: '75.000' },
+            { name: 'Large-Hosting-1 bulan', spec: 'Max File 2 Gb', price: '100.000' }
           ]
         },
         {
           duration: '6 Bulan',
           packages: [
-            { name: 'Small-Hosting-6 bln', spec: 'Max File 512 Mb', price: '250.000' },
-            { name: 'Medium-Hosting-6 bln', spec: 'Max File 1 Gb', price: '375.000' },
-            { name: 'Large-Hosting-6 bln', spec: 'Max File 2 Gb', price: '500.000' }
+            { name: 'Small-Hosting-6 bulan', spec: 'Max File 512 Mb', price: '250.000' },
+            { name: 'Medium-Hosting-6 bulan', spec: 'Max File 1 Gb', price: '375.000' },
+            { name: 'Large-Hosting-6 bulan', spec: 'Max File 2 Gb', price: '500.000' }
           ]
         },
         {
           duration: '12 Bulan',
           packages: [
-            { name: 'Small-Hosting-12 bln', spec: 'Max File 512 Mb + Free domain .my.id', price: '500.000' },
-            { name: 'Medium-Hosting-12 bln', spec: 'Max File 1 Gb + Free domain .my.id', price: '750.000' },
-            { name: 'Large-Hosting-12 bln', spec: 'Max File 2 Gb + Free domain .com', price: '1.000.000' }
+            { name: 'Small-Hosting-12 bulan', spec: 'Max File 512 Mb + Free domain .my.id', price: '500.000' },
+            { name: 'Medium-Hosting-12 bulan', spec: 'Max File 1 Gb + Free domain .my.id', price: '750.000' },
+            { name: 'Large-Hosting-12 bulan', spec: 'Max File 2 Gb + Free domain .com', price: '1.000.000' }
           ]
         }
       ]
@@ -47,48 +47,48 @@ export default function Pricing() {
       color: 'green',
       durations: {
         '1': [
-          { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp80.000' },
-          { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp100.000' },
-          { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp120.000' },
-          { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp275.000' },
-          { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp300.000' },
-          { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp325.000' },
-          { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp300.000' },
-          { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp325.000' },
-          { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp350.000' }
+          { name: 'Paket Silver 1', spec: 'Host Max File 512 Mb + Domain .my.id', price: '80.000' },
+          { name: 'Paket Silver 2', spec: 'Host Max File 512 Mb + Domain .com', price: '275.000' },
+          { name: 'Paket Silver 3', spec: 'Host Max File 512 Mb + Domain .id', price: '300.000' },
+          { name: 'Paket Gold 1', spec: 'Host Max File 1 Gb + Domain .my.id', price: '100.000' },
+          { name: 'Paket Gold 2', spec: 'Host Max File 1 Gb + Domain .com', price: '300.000' },
+          { name: 'Paket Gold 3', spec: 'Host Max File 1 Gb + Domain .id', price: '325.000' },
+          { name: 'Paket Diamond 1', spec: 'Host Max File 2 Gb + Domain .my.id', price: '120.000' },
+          { name: 'Paket Diamond 2', spec: 'Host Max File 2 Gb + Domain .com', price: '325.000' },
+          { name: 'Paket Diamond 3', spec: 'Host Max File 2 Gb + Domain .id', price: '350.000' }
         ],
         '3': [
-          { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp240.000' },
-          { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp300.000' },
-          { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp360.000' },
-          { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp825.000' },
-          { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp900.000' },
-          { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp975.000' },
-          { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp900.000' },
-          { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp975.000' },
-          { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp1.050.000' }
+          { name: 'Paket Silver 1', spec: 'Host Max File 512 Mb + Domain .my.id', price: '240.000' },
+          { name: 'Paket Silver 2', spec: 'Host Max File 512 Mb + Domain .com', price: '825.000' },
+          { name: 'Paket Silver 3', spec: 'Host Max File 512 Mb + Domain .id', price: '900.000' },
+          { name: 'Paket Gold 1', spec: 'Host Max File 1 Gb + Domain .my.id', price: '300.000' },
+          { name: 'Paket Gold 2', spec: 'Host Max File 1 Gb + Domain .com', price: '900.000' },
+          { name: 'Paket Gold 3', spec: 'Host Max File 1 Gb + Domain .id', price: '975.000' },
+          { name: 'Paket Diamond 1', spec: 'Host Max File 2 Gb + Domain .my.id', price: '360.000' },
+          { name: 'Paket Diamond 2', spec: 'Host Max File 2 Gb + Domain .com', price: '975.000' },
+          { name: 'Paket Diamond 3', spec: 'Host Max File 2 Gb + Domain .id', price: '1.050.000' }
         ],
         '6': [
-          { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp280.000' },
-          { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp405.000' },
-          { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp530.000' },
-          { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp475.000' },
-          { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp600.000' },
-          { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp725.000' },
-          { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp500.000' },
-          { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp625.000' },
-          { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp750.000' }
+          { name: 'Paket Silver 1', spec: 'Host Max File 512 Mb + Domain .my.id', price: '280.000' },
+          { name: 'Paket Silver 2', spec: 'Host Max File 512 Mb + Domain .com', price: '475.000' },
+          { name: 'Paket Silver 3', spec: 'Host Max File 512 Mb + Domain .id', price: '500.000' },
+          { name: 'Paket Gold 1', spec: 'Host Max File 1 Gb + Domain .my.id', price: '405.000' },
+          { name: 'Paket Gold 2', spec: 'Host Max File 1 Gb + Domain .com', price: '600.000' },
+          { name: 'Paket Gold 3', spec: 'Host Max File 1 Gb + Domain .id', price: '625.000' },
+          { name: 'Paket Diamond 1', spec: 'Host Max File 2 Gb + Domain .my.id', price: '530.000' },
+          { name: 'Paket Diamond 2', spec: 'Host Max File 2 Gb + Domain .com', price: '725.000' },
+          { name: 'Paket Diamond 3', spec: 'Host Max File 2 Gb + Domain .id', price: '750.000' }
         ],
         '12': [
-          { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp500.000' },
-          { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp750.000' },
-          { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp1.030.000' },
-          { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp725.000' },
-          { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp975.000' },
-          { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp1.000.000' },
-          { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp750.000' },
-          { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp1.000.000' },
-          { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp1.250.000' }
+          { name: 'Paket Silver 1', spec: 'Host Max File 512 Mb + Domain .my.id', price: '500.000' },
+          { name: 'Paket Silver 2', spec: 'Host Max File 512 Mb + Domain .com', price: '725.000' },
+          { name: 'Paket Silver 3', spec: 'Host Max File 512 Mb + Domain .id', price: '750.000' },
+          { name: 'Paket Gold 1', spec: 'Host Max File 1 Gb + Domain .my.id', price: '750.000' },
+          { name: 'Paket Gold 2', spec: 'Host Max File 1 Gb + Domain .com', price: '975.000' },
+          { name: 'Paket Gold 3', spec: 'Host Max File 1 Gb + Domain .id', price: '1.000.000' },
+          { name: 'Paket Diamond 1', spec: 'Host Max File 2 Gb + Domain .my.id', price: '1.030.000' },
+          { name: 'Paket Diamond 2', spec: 'Host Max File 2 Gb + Domain .com', price: '1.000.000' },
+          { name: 'Paket Diamond 3', spec: 'Host Max File 2 Gb + Domain .id', price: '1.250.000' }
         ]
       }
     },
@@ -113,7 +113,7 @@ export default function Pricing() {
 
   const tabs = [
     { id: 'hosting-php', label: 'Hosting PHP', shortLabel: 'Hosting PHP', icon: Server },
-    { id: 'hosting-domain', label: 'Hosting + Domain', shortLabel: 'H+D', icon: Globe },
+    { id: 'hosting-domain', label: 'Hosting + Domain', shortLabel: 'Hosting + Domain', icon: Globe },
     { id: 'custom-project', label: 'Custom Project', shortLabel: 'Custom', icon: Server },
   ];
 
@@ -209,17 +209,17 @@ export default function Pricing() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6"
+            className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-4"
           >
             Jasa Layanan<br />
-            <span className="text-5xl sm:text-6xl md:text-7xl">LOWCOSTHOST.ID</span>
+            <span className="text-3xl sm:text-5xl md:text-7xl">LOWCOSTHOST.ID</span>
           </motion.h1>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-white/90 text-sm sm:text-base mb-8 px-4"
+            className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-white/90 text-xs sm:text-base mb-6 px-4"
           >
             <div className="flex items-center gap-2 min-w-0">
               <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -272,7 +272,7 @@ export default function Pricing() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-3xl sm:text-4xl font-black text-center mb-4"
+            className="text-xl sm:text-3xl md:text-4xl font-black text-center mb-4"
             style={{ color: '#3B82F6' }}
           >
             {pricingData[activeTab].title}
@@ -283,7 +283,7 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-center text-gray-600 mb-12 text-lg"
+              className="text-center text-gray-600 mb-8 sm:mb-12 text-sm sm:text-lg"
             >
               {pricingData[activeTab].subtitle}
             </motion.p>
@@ -295,15 +295,15 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="max-w-md mx-auto mb-12"
+              className="max-w-md mx-auto mb-8 sm:mb-12"
             >
-              <label className="block text-center text-gray-700 font-bold mb-3 text-lg">
+              <label className="block text-center text-gray-700 font-bold mb-2 sm:mb-3 text-base sm:text-lg">
                 Pilih Durasi:
               </label>
               <select
                 value={selectedDuration}
                 onChange={(e) => setSelectedDuration(e.target.value)}
-                className="w-full px-6 py-4 text-lg font-bold text-center rounded-lg border-2 border-primary bg-white text-gray-900 focus:outline-none focus:ring-4 focus:ring-primary/30 transition-all cursor-pointer shadow-lg hover:shadow-xl"
+                className="w-full px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg font-bold text-center rounded-lg border-2 border-primary bg-white text-gray-900 focus:outline-none focus:ring-4 focus:ring-primary/30 transition-all cursor-pointer shadow-lg hover:shadow-xl"
               >
                 <option value="1">1 Bulan</option>
                 <option value="3">3 Bulan</option>
@@ -324,14 +324,14 @@ export default function Pricing() {
                 transition={{ duration: 0.3 }}
                 className="flex flex-col"
               >
-                <div className="bg-green-500 text-white px-4 py-4 rounded-t-lg">
-                  <h3 className="text-xl font-bold text-center">
+                <div className="bg-green-500 text-white px-4 py-3 sm:py-4 rounded-t-lg">
+                  <h3 className="text-lg sm:text-xl font-bold text-center">
                     {selectedDuration === '1' ? '1 Bulan' : selectedDuration === '3' ? '3 Bulan' : selectedDuration === '6' ? '6 Bulan' : '12 Bulan'}
                   </h3>
                 </div>
                 
                 <div className="bg-white rounded-lg rounded-t-none border-2 border-green-500 overflow-hidden shadow-lg flex-1">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 p-3 sm:p-4">
                     {pricingData['hosting-domain'].durations[selectedDuration].map((pkg, index) => {
                       const getBadgeColor = (name) => {
                         if (name.includes('Silver')) return 'bg-cyan-500';
@@ -346,16 +346,16 @@ export default function Pricing() {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: index * 0.05 }}
-                          className="p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:shadow-lg transition-all bg-white"
+                          className="p-3 sm:p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:shadow-lg transition-all bg-white"
                         >
                           <div className="flex flex-col items-center text-center">
-                            <span className={`px-3 py-1.5 ${getBadgeColor(pkg.name)} text-white font-bold rounded-lg text-sm mb-3`}>
+                            <span className={`px-2.5 sm:px-3 py-1 sm:py-1.5 ${getBadgeColor(pkg.name)} text-white font-bold rounded-lg text-xs sm:text-sm mb-2 sm:mb-3`}>
                               {pkg.name}
                             </span>
-                            <div className="text-gray-600 text-sm mb-3">
+                            <div className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">
                               {pkg.spec}
                             </div>
-                            <span className="font-bold text-gray-900 text-lg">
+                            <span className="font-bold text-gray-900 text-base sm:text-lg">
                               {pkg.price}
                             </span>
                           </div>
@@ -561,7 +561,7 @@ export default function Pricing() {
             transition={{ delay: 0.4 }}
             className="bg-gradient-to-br from-gray-50 to-white rounded-lg border-2 border-gray-200 p-6 sm:p-8 shadow-lg mb-12"
           >
-            <h3 className="text-2xl font-bold text-primary mb-6 text-center">Fitur yang Didapatkan</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-primary mb-4 sm:mb-6 text-center">Fitur yang Didapatkan</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
                 'SSL Gratis',
@@ -581,7 +581,7 @@ export default function Pricing() {
                   <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
                     <Check className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-gray-700 font-medium text-sm">{feature}</span>
+                  <span className="text-gray-700 font-medium text-xs sm:text-sm">{feature}</span>
                 </motion.div>
               ))}
             </div>
@@ -598,7 +598,7 @@ export default function Pricing() {
           >
             {/* Benefits List */}
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Keuntungan yang Kami berikan:</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Keuntungan yang Kami berikan:</h3>
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
                   <motion.div
@@ -612,7 +612,7 @@ export default function Pricing() {
                     <div className="flex-shrink-0 w-6 h-6 rounded-lg bg-primary flex items-center justify-center mt-1">
                       <Check className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-gray-700 text-lg">{benefit}</span>
+                    <span className="text-gray-700 text-sm sm:text-lg">{benefit}</span>
                   </motion.div>
                 ))}
               </div>
@@ -631,12 +631,12 @@ export default function Pricing() {
               </div>
               
               <div className="relative z-10">
-                <div className="text-sm font-semibold mb-2 opacity-90">TERSEDIA PAKET PREMIUM & CUSTOM</div>
-                <div className="text-sm font-semibold mb-4 opacity-90">PROJECT PEMBUATAN SISTEM</div>
+                <div className="text-xs sm:text-sm font-semibold mb-1 sm:mb-2 opacity-90">TERSEDIA PAKET PREMIUM & CUSTOM</div>
+                <div className="text-xs sm:text-sm font-semibold mb-3 sm:mb-4 opacity-90">PROJECT PEMBUATAN SISTEM</div>
                 
-                <h3 className="text-3xl sm:text-4xl font-black mb-6">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 sm:mb-6">
                   Custom Project:<br />
-                  <span className="text-4xl sm:text-5xl">Start From 299.000</span>
+                  <span className="text-3xl sm:text-4xl md:text-5xl">Start From 299.000</span>
                 </h3>
 
                 <motion.a
