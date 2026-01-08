@@ -37,10 +37,74 @@ export default function Hosting() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-primary to-primary-dark relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-        </div>
+      <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+        {/* Animated background gradient orbs */}
+        <motion.div 
+          className="absolute w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, 80, 0],
+            y: [0, -60, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ top: '-15%', left: '-15%' }}
+        />
+        
+        <motion.div 
+          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ bottom: '-15%', right: '-15%' }}
+        />
+
+        <motion.div 
+          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-primary/25 to-cyan-400/25 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.6, 0.4],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+        />
+
+        {/* Floating particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-300/40 rounded-full"
+            animate={{
+              y: [0, -1000],
+              x: [0, Math.random() * 200 - 100],
+              opacity: [0, 0.8, 0],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "linear"
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: '100%',
+            }}
+          />
+        ))}
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.h1

@@ -10,32 +10,32 @@ export default function Pricing() {
 
   const pricingData = {
     'hosting-php': {
-      title: 'Harga Hosting PHP Bulanan',
+      title: 'Layanan Hosting PHP Bulanan',
       subtitle: 'Hosting Only (Tanpa Domain), Free Subdomain',
       color: 'cyan',
       segments: [
         {
           duration: '1 Bulan',
           packages: [
-            { name: 'Small', spec: 'Max File 512MB', price: 'Rp50.000' },
-            { name: 'Medium', spec: 'Max File 1GB', price: 'Rp75.000' },
-            { name: 'Large', spec: 'Max File 2GB', price: 'Rp100.000' }
+            { name: 'Small-Hosting-1 bln', spec: 'Max File 512 Mb', price: '50.000' },
+            { name: 'Medium-Hosting-1 bln', spec: 'Max File 1 Gb', price: '75.000' },
+            { name: 'Large-Hosting-1 bln', spec: 'Max File 2 Gb', price: '100.000' }
           ]
         },
         {
           duration: '6 Bulan',
           packages: [
-            { name: 'Small', spec: 'Max File 512MB', price: 'Rp250.000' },
-            { name: 'Medium', spec: 'Max File 1GB', price: 'Rp375.000' },
-            { name: 'Large', spec: 'Max File 2GB', price: 'Rp500.000' }
+            { name: 'Small-Hosting-6 bln', spec: 'Max File 512 Mb', price: '250.000' },
+            { name: 'Medium-Hosting-6 bln', spec: 'Max File 1 Gb', price: '375.000' },
+            { name: 'Large-Hosting-6 bln', spec: 'Max File 2 Gb', price: '500.000' }
           ]
         },
         {
           duration: '12 Bulan',
           packages: [
-            { name: 'Small', spec: 'Max File 512MB + Free Domain .my.id', price: 'Rp500.000' },
-            { name: 'Medium', spec: 'Max File 1GB + Free Domain .my.id', price: 'Rp750.000' },
-            { name: 'Large', spec: 'Max File 2GB + Free Domain .my.id', price: 'Rp1.000.000' }
+            { name: 'Small-Hosting-12 bln', spec: 'Max File 512 Mb + Free domain .my.id', price: '500.000' },
+            { name: 'Medium-Hosting-12 bln', spec: 'Max File 1 Gb + Free domain .my.id', price: '750.000' },
+            { name: 'Large-Hosting-12 bln', spec: 'Max File 2 Gb + Free domain .com', price: '1.000.000' }
           ]
         }
       ]
@@ -89,11 +89,29 @@ export default function Pricing() {
         }
       ]
     },
+    'custom-project': {
+      title: 'Harga Custom Project',
+      subtitle: 'Pembuatan Sistem & Aplikasi',
+      color: 'yellow',
+      segments: [
+        {
+          duration: '',
+          packages: [
+            { name: 'Sistem Basic', spec: 'Max 2 fitur CRUD + modul login', price: 'Rp299.000' },
+            { name: 'Sistem Intermediate', spec: 'Max 10 fitur CRUD', price: 'Rp499.000' },
+            { name: 'Coding Simple', spec: 'To do list, game simple, kalkulator, dll', price: 'Rp49.000' },
+            { name: 'Mobile App', spec: 'Flutter, android native, react, dll', price: 'Rp749.000' },
+            { name: 'Sistem Advanced', spec: 'Hubungi kami', price: '-' }
+          ]
+        }
+      ]
+    },
   };
 
   const tabs = [
-    { id: 'hosting-php', label: 'Hosting PHP', icon: Server },
-    { id: 'hosting-domain', label: 'Hosting + Domain', icon: Globe },
+    { id: 'hosting-php', label: 'Hosting PHP', shortLabel: 'Hosting PHP', icon: Server },
+    { id: 'hosting-domain', label: 'Hosting + Domain', shortLabel: 'H+D', icon: Globe },
+    { id: 'custom-project', label: 'Custom Project', shortLabel: 'Custom', icon: Server },
   ];
 
   const benefits = [
@@ -107,10 +125,74 @@ export default function Pricing() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-primary to-primary-dark relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-        </div>
+      <section className="py-20 sm:py-32 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+        {/* Animated background gradient orbs */}
+        <motion.div 
+          className="absolute w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, 80, 0],
+            y: [0, -60, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ top: '-15%', left: '-15%' }}
+        />
+        
+        <motion.div 
+          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ bottom: '-15%', right: '-15%' }}
+        />
+
+        <motion.div 
+          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-primary/25 to-cyan-400/25 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.6, 0.4],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+        />
+
+        {/* Floating particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-300/40 rounded-full"
+            animate={{
+              y: [0, -1000],
+              x: [0, Math.random() * 200 - 100],
+              opacity: [0, 0.8, 0],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "linear"
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: '100%',
+            }}
+          />
+        ))}
         
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <motion.div
@@ -159,21 +241,22 @@ export default function Pricing() {
       </section>
 
       {/* Tabs Section */}
-      <section className="py-8 px-4 sm:px-6 md:px-8 bg-white border-b-2 border-gray-100 sticky top-[72px] z-40">
+      <section className="py-8 px-4 sm:px-6 md:px-8 bg-white border-b-2 border-gray-100 top-[72px] z-40">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-center items-center gap-2 sm:gap-4 flex-wrap">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 sm:px-6 py-3 rounded-lg font-bold whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-bold whitespace-nowrap transition-all ${
                   activeTab === tab.id
                     ? 'bg-primary text-white shadow-lg'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
-                <tab.icon className="w-5 h-5" />
-                <span className="text-sm sm:text-base">{tab.label}</span>
+                <tab.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-xs sm:text-base hidden sm:inline">{tab.label}</span>
+                <span className="text-xs sm:hidden">{tab.shortLabel}</span>
               </button>
             ))}
           </div>
@@ -204,94 +287,196 @@ export default function Pricing() {
           )}
 
           {/* Pricing Tables - Loop through segments */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+          <div className={`grid grid-cols-1 ${activeTab === 'custom-project' ? 'max-w-4xl mx-auto' : 'lg:grid-cols-3'} gap-6 lg:gap-8 mb-12`}>
             {pricingData[activeTab].segments.map((segment, segmentIndex) => {
-              // Define colors based on segment color property
-              const colorScheme = {
-                cyan: {
-                  bg: 'bg-cyan-500',
-                  border: 'border-cyan-500',
-                  hover: 'hover:bg-cyan-50',
-                  text: 'text-cyan-600'
-                },
-                green: {
-                  bg: 'bg-green-500',
-                  border: 'border-green-500',
-                  hover: 'hover:bg-green-50',
-                  text: 'text-green-600'
-                },
-                yellow: {
-                  bg: 'bg-yellow-500',
-                  border: 'border-yellow-500',
-                  hover: 'hover:bg-yellow-50',
-                  text: 'text-yellow-600'
-                }
-              };
-              
-              const colors = colorScheme[pricingData[activeTab].color] || colorScheme.cyan;
-              
-              return (
-                <motion.div
-                  key={segmentIndex}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: segmentIndex * 0.1 }}
-                  className="flex flex-col"
-                >
-                  {/* Segment Duration Header */}
-                  {segment.duration && (
-                    <div className={`${colors.bg} text-white px-4 py-4 rounded-t-lg`}>
-                      <h3 className="text-xl font-bold text-center">
-                        {segment.duration}
-                      </h3>
+                const colorScheme = {
+                  cyan: {
+                    bg: 'bg-cyan-500',
+                    border: 'border-cyan-500',
+                    hover: 'hover:bg-cyan-50',
+                  },
+                  green: {
+                    bg: 'bg-green-500',
+                    border: 'border-green-500',
+                    hover: 'hover:bg-green-50',
+                  },
+                  yellow: {
+                    bg: 'bg-yellow-500',
+                    border: 'border-yellow-500',
+                    hover: 'hover:bg-yellow-50',
+                  }
+                };
+                
+                const colors = colorScheme[pricingData[activeTab].color];
+                
+                return (
+                  <motion.div
+                    key={segmentIndex}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: segmentIndex * 0.1 }}
+                    className="flex flex-col"
+                  >
+                    {segment.duration && (
+                      <div className={`${colors.bg} text-white px-4 py-4 rounded-t-lg`}>
+                        <h3 className="text-xl font-bold text-center">
+                          {segment.duration}
+                        </h3>
+                      </div>
+                    )}
+                    
+                    <div className={`bg-white rounded-lg ${segment.duration ? 'rounded-t-none' : ''} border-2 ${colors.border} overflow-hidden shadow-lg flex-1`}>
+                      <div>
+                        {segment.packages.map((pkg, index) => {
+                          // Badge color berdasarkan nama paket
+                          const getBadgeColor = (name) => {
+                            if (name.includes('Silver')) return 'bg-cyan-500';
+                            if (name.includes('Gold')) return 'bg-green-500';
+                            if (name.includes('Diamond')) return 'bg-orange-500';
+                            // Untuk custom project
+                            if (name.includes('Basic')) return 'bg-cyan-500';
+                            if (name.includes('Intermediate')) return 'bg-green-500';
+                            if (name.includes('Advanced')) return 'bg-red-500';
+                            if (name.includes('Mobile')) return 'bg-indigo-500';
+                            if (name.includes('Coding')) return 'bg-yellow-500';
+                            return 'bg-purple-600';
+                          };
+                          
+                          return (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              className={`p-4 border-b border-gray-100 ${colors.hover} transition-colors ${
+                                index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between mb-2">
+                                <span className={`px-3 py-1.5 ${getBadgeColor(pkg.name)} text-white font-bold rounded-lg text-sm`}>
+                                  {pkg.name}
+                                </span>
+                                <span className="font-bold text-gray-900 text-base">
+                                  {pkg.price}
+                                </span>
+                              </div>
+                              <div className="text-gray-600 text-sm">
+                                {pkg.spec}
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  )}
-                  
-                  {/* Pricing Table */}
-                  <div className={`bg-white rounded-lg ${segment.duration ? 'rounded-t-none' : ''} border-2 ${colors.border} overflow-hidden shadow-lg flex-1`}>
-                    {/* Table Body */}
+                  </motion.div>
+                );
+              })}
+            </div>
+
+          {/* Section khusus untuk Custom Project */}
+          {activeTab === 'custom-project' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="mb-12"
+            >
+              <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-700 rounded-lg p-8 sm:p-12 text-white shadow-2xl">
+                <h3 className="text-2xl sm:text-3xl font-black text-center mb-8">Our Best Project</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                  {/* Left Project */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20"
+                  >
+                    <div className="text-center mb-4">
+                      <div className="text-4xl mb-2">🌐</div>
+                      <h4 className="font-bold text-lg">Website dinamis & interaktif</h4>
+                      <p className="text-sm text-white/80 mt-2">oemahlahu.com</p>
+                      <p className="text-sm text-white/80">smklamasiswapwt.sch.id</p>
+                    </div>
+                    <motion.a
+                      href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20info%20project%20website"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="block w-full px-4 py-2 bg-white text-purple-600 font-bold rounded-lg text-center hover:shadow-xl transition-all"
+                    >
+                      Info lebih hubungi MinHost
+                    </motion.a>
+                  </motion.div>
+
+                  {/* Right Project */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20"
+                  >
+                    <div className="text-center mb-4">
+                      <div className="text-4xl mb-2">📱</div>
+                      <h4 className="font-bold text-lg">Mobile App Project</h4>
+                      <p className="text-sm text-white/80 mt-2">PetalokaApp</p>
+                      <p className="text-sm text-white/80">HokiApp</p>
+                    </div>
+                    <motion.a
+                      href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20info%20project%20mobile%20app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="block w-full px-4 py-2 bg-white text-purple-600 font-bold rounded-lg text-center hover:shadow-xl transition-all"
+                    >
+                      Info lebih hubungi MinHost
+                    </motion.a>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Keuntungan Section untuk Custom Project */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="mt-8 bg-white rounded-lg border-2 border-gray-200 p-6 sm:p-8 shadow-lg"
+              >
+                <h3 className="text-2xl font-bold text-primary mb-6 text-center">Keuntungan yang Kami berikan:</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-lg bg-primary flex items-center justify-center mt-1">
+                      <Check className="w-4 h-4 text-white" />
+                    </div>
                     <div>
-                      {segment.packages.map((pkg, index) => {
-                        // Define badge color based on package name
-                        const getBadgeColor = (name) => {
-                          if (name === 'Small') return 'bg-cyan-500';
-                          if (name === 'Medium') return 'bg-green-500';
-                          if (name === 'Large') return 'bg-orange-500';
-                          return colors.bg;
-                        };
-                        
-                        return (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.05 }}
-                            className={`p-4 border-b border-gray-100 ${colors.hover} transition-colors ${
-                              index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between mb-2">
-                              <span className={`px-3 py-1.5 ${getBadgeColor(pkg.name)} text-white font-bold rounded-lg text-sm`}>
-                                {pkg.name}
-                              </span>
-                              <span className="font-bold text-gray-900 text-base">
-                                {pkg.price}
-                              </span>
-                            </div>
-                            <div className="text-gray-600 text-sm">
-                              {pkg.spec}
-                            </div>
-                          </motion.div>
-                        );
-                      })}
+                      <h4 className="font-bold text-gray-900 mb-1">Hosting tanpa ribet & ready to use</h4>
                     </div>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-lg bg-primary flex items-center justify-center mt-1">
+                      <Check className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1">Harga terjangkau dengan layanan profesional</h4>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-lg bg-primary flex items-center justify-center mt-1">
+                      <Check className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-1">Keamanan data terjamin</h4>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
 
-          {/* Features Section */}
+          {/* Features Section - hanya untuk non-custom project */}
+          {activeTab !== 'custom-project' && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -326,8 +511,10 @@ export default function Pricing() {
               ))}
             </div>
           </motion.div>
+          )}
 
-          {/* Benefits Section */}
+          {/* Benefits Section - hanya untuk non-custom project */}
+          {activeTab !== 'custom-project' && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -393,6 +580,7 @@ export default function Pricing() {
               </div>
             </motion.div>
           </motion.div>
+          )}
         </div>
       </section>
 

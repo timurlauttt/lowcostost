@@ -11,7 +11,6 @@ export default function Hero() {
 
   return (
     <section className="min-h-[85vh] flex items-center justify-center px-4 sm:px-6 md:px-8 py-16 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
-      {/* Animated background gradient orbs */}
       <motion.div 
         className="absolute w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
         animate={{
@@ -56,7 +55,6 @@ export default function Hero() {
         style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
       />
 
-      {/* Floating particles */}
       {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
@@ -81,7 +79,6 @@ export default function Hero() {
 
       <div className="text-center max-w-7xl mx-auto relative z-10 px-2">
 
-        {/* Main heading with stagger animation */}
         <motion.h1 
           className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-4 sm:mb-6 leading-tight tracking-tight"
           initial={{ opacity: 0, y: 30 }}
