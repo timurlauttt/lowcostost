@@ -243,7 +243,7 @@ export default function HostingPHP() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6"
+            className="text-2xl sm:text-4xl md:text-6xl font-black text-white mb-4 sm:mb-6"
           >
             Form Hosting PHP
           </motion.h1>
@@ -251,7 +251,7 @@ export default function HostingPHP() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg sm:text-xl text-white/90"
+            className="text-sm sm:text-lg md:text-xl text-white/90"
           >
             Lengkapi form di bawah ini untuk memulai setup hosting PHP Anda
           </motion.p>
@@ -259,7 +259,7 @@ export default function HostingPHP() {
       </section>
 
       {/* Progress Bar */}
-      <section className="py-8 px-4 sm:px-6 md:px-8 bg-white border-b-2 border-gray-100 sticky top-[72px] z-40">
+      <section className="py-4 sm:py-8 px-3 sm:px-6 md:px-8 bg-white border-b-2 border-gray-100">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between">
             {steps.map((step, index) => (
@@ -269,7 +269,7 @@ export default function HostingPHP() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: index * 0.1 }}
-                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base transition-all ${
+                    className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-xs sm:text-base transition-all ${
                       currentStep > step.number
                         ? 'bg-green-500 text-white'
                         : currentStep === step.number
@@ -283,7 +283,7 @@ export default function HostingPHP() {
                       step.number
                     )}
                   </motion.div>
-                  <span className={`text-xs sm:text-sm mt-2 font-medium text-center ${
+                  <span className={`text-[10px] sm:text-sm mt-1 sm:mt-2 font-medium text-center ${
                     currentStep >= step.number ? 'text-primary' : 'text-gray-400'
                   }`}>
                     {step.title}
@@ -310,7 +310,7 @@ export default function HostingPHP() {
       </section>
 
       {/* Form Steps */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-gray-50 to-white min-h-[60vh]">
+      <section className="py-8 sm:py-16 md:py-20 px-3 sm:px-6 md:px-8 bg-gradient-to-b from-gray-50 to-white min-h-[60vh]">
         <div className="max-w-4xl mx-auto">
           <AnimatePresence mode="wait">
             {/* Step 1: Data Diri */}
@@ -320,12 +320,12 @@ export default function HostingPHP() {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
-                className="bg-white rounded-lg border-2 border-gray-200 p-6 sm:p-8 space-y-6"
+                className="bg-white rounded-lg border-2 border-gray-200 p-4 sm:p-8 space-y-4 sm:space-y-6"
               >
-                <h2 className="text-2xl font-black text-primary-dark mb-6">Data Diri & Framework</h2>
+                <h2 className="text-xl sm:text-2xl font-black text-primary-dark mb-4 sm:mb-6">Data Diri & Framework</h2>
                 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Nama Lengkap *
                   </label>
                   <input
@@ -334,13 +334,13 @@ export default function HostingPHP() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
                     placeholder="Masukkan nama lengkap Anda"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Nomor WhatsApp *
                   </label>
                   <input
@@ -349,20 +349,20 @@ export default function HostingPHP() {
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
                     placeholder="08123456789"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Framework / Platform *
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {frameworks.map((fw) => (
                       <label
                         key={fw.value}
-                        className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                        className={`p-3 sm:p-4 rounded-lg border-2 cursor-pointer transition-all ${
                           formData.framework === fw.value
                             ? 'border-primary bg-primary/5'
                             : 'border-gray-200 hover:border-primary/30'
@@ -377,9 +377,9 @@ export default function HostingPHP() {
                           className="sr-only"
                         />
                         <div className="flex items-center justify-between">
-                          <span className="font-medium text-gray-700">{fw.label}</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-700">{fw.label}</span>
                           {formData.framework === fw.value && (
-                            <Check className="w-5 h-5 text-primary" />
+                            <Check className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                           )}
                         </div>
                       </label>
@@ -387,16 +387,16 @@ export default function HostingPHP() {
                   </div>
                 </div>
 
-                <div className="flex justify-end pt-4">
+                <div className="flex justify-end pt-2 sm:pt-4">
                   <motion.button
                     onClick={nextStep}
                     disabled={!formData.name || !formData.phone}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-primary text-white font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
                   >
                     Selanjutnya
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.button>
                 </div>
               </motion.div>
@@ -409,20 +409,20 @@ export default function HostingPHP() {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
-                className="bg-white rounded-lg border-2 border-gray-200 p-6 sm:p-8 space-y-6"
+                className="bg-white rounded-lg border-2 border-gray-200 p-4 sm:p-8 space-y-4 sm:space-y-6"
               >
-                <h2 className="text-2xl font-black text-primary-dark mb-6">Pilih Paket & Domain</h2>
+                <h2 className="text-xl sm:text-2xl font-black text-primary-dark mb-4 sm:mb-6">Pilih Paket & Domain</h2>
                 
                 {/* Tipe Paket */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">
                     Tipe Paket *
                   </label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     {packageTypes.map((pkg) => (
                       <label
                         key={pkg.value}
-                        className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
+                        className={`p-4 sm:p-6 rounded-lg border-2 cursor-pointer transition-all ${
                           formData.packageType === pkg.value
                             ? 'border-primary bg-primary/5 ring-2 ring-primary/30'
                             : 'border-gray-200 hover:border-primary/30'
@@ -437,15 +437,15 @@ export default function HostingPHP() {
                           className="sr-only"
                         />
                         <div className="flex items-start justify-between">
-                          <div className="flex items-start gap-3">
+                          <div className="flex items-start gap-2 sm:gap-3">
                             {pkg.value === 'hosting-only' ? (
-                              <Server className="w-6 h-6 text-primary flex-shrink-0" />
+                              <Server className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                             ) : (
-                              <Globe className="w-6 h-6 text-primary flex-shrink-0" />
+                              <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                             )}
                             <div>
-                              <p className="font-bold text-gray-900">{pkg.label}</p>
-                              <p className="text-xs text-gray-600 mt-1">
+                              <p className="text-sm sm:text-base font-bold text-gray-900">{pkg.label}</p>
+                              <p className="text-[10px] sm:text-xs text-gray-600 mt-1">
                                 {pkg.value === 'hosting-only' 
                                   ? 'Gratis subdomain' 
                                   : 'Pilih domain .my.id, .com, atau .id'}
@@ -453,7 +453,7 @@ export default function HostingPHP() {
                             </div>
                           </div>
                           {formData.packageType === pkg.value && (
-                            <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                            <Check className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
                           )}
                         </div>
                       </label>
@@ -463,10 +463,10 @@ export default function HostingPHP() {
 
                 {/* Durasi */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">
                     Durasi Hosting *
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {[
                       { value: '1', label: '1 Bulan' },
                       { value: '3', label: '3 Bulan' },
@@ -475,7 +475,7 @@ export default function HostingPHP() {
                     ].map((dur) => (
                       <label
                         key={dur.value}
-                        className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                        className={`p-3 sm:p-4 rounded-lg border-2 cursor-pointer transition-all ${
                           formData.duration === dur.value
                             ? 'border-primary bg-primary/5'
                             : 'border-gray-200 hover:border-primary/30'
@@ -490,9 +490,9 @@ export default function HostingPHP() {
                           className="sr-only"
                         />
                         <div className="flex items-center justify-between">
-                          <span className="font-medium text-gray-700">{dur.label}</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-700">{dur.label}</span>
                           {formData.duration === dur.value && (
-                            <Check className="w-5 h-5 text-primary" />
+                            <Check className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                           )}
                         </div>
                       </label>
@@ -501,20 +501,20 @@ export default function HostingPHP() {
                 </div>
 
                 {/* Pricing Display */}
-                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-6 border-2 border-primary/20">
+                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 sm:p-6 border-2 border-primary/20">
                   <div className="flex justify-between items-center">
                     <div>
-                      <p className="text-sm text-gray-600 mb-1">Total Harga</p>
-                      <p className="text-3xl font-black text-primary">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Harga</p>
+                      <p className="text-xl sm:text-3xl font-black text-primary">
                         {formatPrice(getPricing())}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
                         Untuk {formData.duration} bulan
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-gray-600">Paket</p>
-                      <p className="font-bold text-gray-900">
+                      <p className="text-xs sm:text-sm text-gray-600">Paket</p>
+                      <p className="text-sm sm:text-base font-bold text-gray-900">
                         {formData.packageType === 'hosting-only' ? 'Hosting Only' : 'Hosting + Domain'}
                       </p>
                     </div>
@@ -523,14 +523,14 @@ export default function HostingPHP() {
 
                 {/* Domain Options */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">
                     Pilihan Domain *
                   </label>
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {getDomainOptions().map((domain) => (
                       <label
                         key={domain.value}
-                        className={`p-4 rounded-lg border-2 cursor-pointer transition-all block ${
+                        className={`p-3 sm:p-4 rounded-lg border-2 cursor-pointer transition-all block ${
                           formData.domainType === domain.value
                             ? 'border-primary bg-primary/5'
                             : 'border-gray-200 hover:border-primary/30'
@@ -545,9 +545,9 @@ export default function HostingPHP() {
                           className="sr-only"
                         />
                         <div className="flex items-center justify-between">
-                          <span className="font-medium text-gray-700">{domain.label}</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-700">{domain.label}</span>
                           {formData.domainType === domain.value && (
-                            <Check className="w-5 h-5 text-primary" />
+                            <Check className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                           )}
                         </div>
                       </label>
@@ -557,7 +557,7 @@ export default function HostingPHP() {
 
                 {/* Domain Name */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Nama Domain *
                   </label>
                   <div className="flex gap-2">
@@ -567,7 +567,7 @@ export default function HostingPHP() {
                       value={formData.domainName}
                       onChange={handleChange}
                       required
-                      className="flex-1 px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
+                      className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
                       placeholder={
                         formData.domainType === 'subdomain' 
                           ? 'namaanda' 
@@ -575,21 +575,21 @@ export default function HostingPHP() {
                       }
                     />
                     {formData.domainType === 'subdomain' && (
-                      <span className="flex items-center px-4 py-3 bg-gray-100 text-gray-600 rounded-lg border-2 border-gray-200 whitespace-nowrap">
+                      <span className="flex items-center px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm bg-gray-100 text-gray-600 rounded-lg border-2 border-gray-200 whitespace-nowrap">
                         domain
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="flex justify-between pt-4">
+                <div className="flex justify-between pt-2 sm:pt-4">
                   <motion.button
                     onClick={prevStep}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-8 py-3 bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition-all flex items-center gap-2"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition-all flex items-center gap-1 sm:gap-2"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                     Kembali
                   </motion.button>
                   <motion.button
@@ -597,10 +597,10 @@ export default function HostingPHP() {
                     disabled={!formData.domainName}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-primary text-white font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-1 sm:gap-2"
                   >
                     Selanjutnya
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.button>
                 </div>
               </motion.div>
@@ -613,13 +613,13 @@ export default function HostingPHP() {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
-                className="bg-white rounded-lg border-2 border-gray-200 p-6 sm:p-8 space-y-6"
+                className="bg-white rounded-lg border-2 border-gray-200 p-4 sm:p-8 space-y-4 sm:space-y-6"
               >
-                <h2 className="text-2xl font-black text-primary-dark mb-6">Upload File Project</h2>
+                <h2 className="text-xl sm:text-2xl font-black text-primary-dark mb-4 sm:mb-6">Upload File Project</h2>
                 
                 {/* Link Google Drive */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Link Google Drive Project (ZIP) *
                   </label>
                   <input
@@ -628,20 +628,20 @@ export default function HostingPHP() {
                     value={formData.projectLink}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
                     placeholder="https://drive.google.com/file/d/..."
                   />
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1.5 sm:mt-2">
                     Upload project Anda dalam format ZIP ke Google Drive dan pastikan link dapat diakses
                   </p>
                 </div>
 
                 {/* Upload Database */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Upload File Database (.sql) *
                   </label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-6 text-center hover:border-primary transition-colors">
                     <input
                       type="file"
                       name="database"
@@ -652,22 +652,22 @@ export default function HostingPHP() {
                       id="database-upload"
                     />
                     <label htmlFor="database-upload" className="cursor-pointer">
-                      <Upload className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                      <p className="text-sm text-gray-600 mb-1">
+                      <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-2 sm:mb-3" />
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">
                         {formData.database ? (
                           <span className="text-primary font-semibold">{formData.database.name}</span>
                         ) : (
                           'Klik untuk upload file database'
                         )}
                       </p>
-                      <p className="text-xs text-gray-500">Format: .sql (Max 50MB)</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500">Format: .sql (Max 50MB)</p>
                     </label>
                   </div>
                 </div>
 
                 {/* Catatan Tambahan */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Catatan Tambahan (Opsional)
                   </label>
                   <textarea
@@ -675,22 +675,22 @@ export default function HostingPHP() {
                     value={formData.notes}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors resize-none"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors resize-none"
                     placeholder="Tulis catatan khusus atau instruksi tambahan untuk setup hosting Anda..."
                   />
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1.5 sm:mt-2">
                     Contoh: "Mohon install plugin WooCommerce", "Database menggunakan prefix wp2_", dll.
                   </p>
                 </div>
 
-                <div className="flex justify-between pt-4">
+                <div className="flex justify-between pt-2 sm:pt-4">
                   <motion.button
                     onClick={prevStep}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-8 py-3 bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition-all flex items-center gap-2"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition-all flex items-center gap-1 sm:gap-2"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                     Kembali
                   </motion.button>
                   <motion.button
@@ -698,10 +698,10 @@ export default function HostingPHP() {
                     disabled={!formData.projectLink || !formData.database}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-primary text-white font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-1 sm:gap-2"
                   >
                     Selanjutnya
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.button>
                 </div>
               </motion.div>
@@ -714,15 +714,15 @@ export default function HostingPHP() {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
-                className="bg-white rounded-lg border-2 border-gray-200 p-6 sm:p-8 space-y-6"
+                className="bg-white rounded-lg border-2 border-gray-200 p-4 sm:p-8 space-y-4 sm:space-y-6"
               >
-                <h2 className="text-2xl font-black text-primary-dark mb-6">Konfirmasi & Pembayaran</h2>
+                <h2 className="text-xl sm:text-2xl font-black text-primary-dark mb-4 sm:mb-6">Konfirmasi & Pembayaran</h2>
                 
                 {/* Rangkuman Pesanan */}
-                <div className="bg-gray-50 rounded-lg p-6 space-y-4">
-                  <h3 className="font-bold text-lg text-gray-900 mb-4">Rangkuman Pesanan</h3>
+                <div className="bg-gray-50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Rangkuman Pesanan</h3>
                   
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                     <div className="text-gray-600">Nama</div>
                     <div className="font-semibold text-gray-900">{formData.name}</div>
                     
@@ -769,17 +769,17 @@ export default function HostingPHP() {
                   <hr className="my-4" />
                   
                   <div className="flex justify-between items-center pt-2">
-                    <span className="text-lg font-bold text-gray-900">Total Pembayaran</span>
-                    <span className="text-2xl font-black text-primary">
+                    <span className="text-base sm:text-lg font-bold text-gray-900">Total Pembayaran</span>
+                    <span className="text-xl sm:text-2xl font-black text-primary">
                       {formatPrice(getPricing())}
                     </span>
                   </div>
                 </div>
 
                 {/* Info Pembayaran */}
-                <div className="bg-primary/5 border-2 border-primary/20 rounded-lg p-6">
-                  <h3 className="font-bold text-lg text-gray-900 mb-4">Informasi Pembayaran</h3>
-                  <div className="space-y-2 text-sm">
+                <div className="bg-primary/5 border-2 border-primary/20 rounded-lg p-4 sm:p-6">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Informasi Pembayaran</h3>
+                  <div className="space-y-2 text-xs sm:text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Bank</span>
                       <span className="font-semibold text-gray-900">BCA</span>
@@ -797,10 +797,10 @@ export default function HostingPHP() {
 
                 {/* Upload Bukti Pembayaran */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Upload Bukti Pembayaran *
                   </label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-6 text-center hover:border-primary transition-colors">
                     <input
                       type="file"
                       name="payment"
@@ -811,27 +811,27 @@ export default function HostingPHP() {
                       id="payment-upload"
                     />
                     <label htmlFor="payment-upload" className="cursor-pointer">
-                      <FileText className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                      <p className="text-sm text-gray-600 mb-1">
+                      <FileText className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-2 sm:mb-3" />
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">
                         {formData.payment ? (
                           <span className="text-primary font-semibold">{formData.payment.name}</span>
                         ) : (
                           'Klik untuk upload bukti pembayaran'
                         )}
                       </p>
-                      <p className="text-xs text-gray-500">Format: JPG, PNG (Max 5MB)</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500">Format: JPG, PNG (Max 5MB)</p>
                     </label>
                   </div>
                 </div>
 
-                <div className="flex justify-between pt-4">
+                <div className="flex justify-between pt-2 sm:pt-4">
                   <motion.button
                     onClick={prevStep}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-8 py-3 bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition-all flex items-center gap-2"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition-all flex items-center gap-1 sm:gap-2"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                     Kembali
                   </motion.button>
                   <motion.button
@@ -839,9 +839,9 @@ export default function HostingPHP() {
                     disabled={!formData.payment}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-8 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                    className="px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-1 sm:gap-2"
                   >
-                    <Check className="w-5 h-5" />
+                    <Check className="w-4 h-4 sm:w-5 sm:h-5" />
                     Kirim Pesanan
                   </motion.button>
                 </div>
@@ -856,12 +856,12 @@ export default function HostingPHP() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="bg-white rounded-lg border-2 border-gray-200 p-6 sm:p-8"
               >
-                <div className="text-center mb-8">
-                  <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Check className="w-10 h-10 text-white" />
+                <div className="text-center mb-6 sm:mb-8">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                    <Check className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                   </div>
                   
-                  <h2 className="text-3xl font-black text-primary-dark mb-4">
+                  <h2 className="text-xl sm:text-3xl font-black text-primary-dark mb-3 sm:mb-4">
                     Pendaftaran Berhasil!
                   </h2>
                   <p className="text-gray-600">
@@ -870,21 +870,21 @@ export default function HostingPHP() {
                 </div>
 
                 {/* Nomor Resi */}
-                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-6 mb-6 border-2 border-primary/20">
-                  <p className="text-sm text-gray-600 mb-2 text-center">Nomor Resi Anda:</p>
-                  <p className="text-2xl font-black text-primary mb-4 font-mono text-center">
+                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-primary/20">
+                  <p className="text-xs sm:text-sm text-gray-600 mb-2 text-center">Nomor Resi Anda:</p>
+                  <p className="text-lg sm:text-2xl font-black text-primary mb-3 sm:mb-4 font-mono text-center break-all">
                     {resiNumber}
                   </p>
-                  <div className="flex gap-3 justify-center">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
                     <button
                       onClick={() => navigator.clipboard.writeText(resiNumber)}
-                      className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-dark transition-all"
+                      className="px-3 sm:px-4 py-2 bg-primary text-white text-xs sm:text-sm font-bold rounded-lg hover:bg-primary-dark transition-all"
                     >
                       Copy Nomor Resi
                     </button>
                     <a
                       href="/cek-status"
-                      className="px-4 py-2 bg-white border-2 border-primary text-primary text-sm font-bold rounded-lg hover:bg-primary hover:text-white transition-all"
+                      className="px-3 sm:px-4 py-2 bg-white border-2 border-primary text-primary text-xs sm:text-sm font-bold rounded-lg hover:bg-primary hover:text-white transition-all text-center"
                     >
                       Cek Status
                     </a>
@@ -892,12 +892,12 @@ export default function HostingPHP() {
                 </div>
 
                 {/* Nota Pembelian */}
-                <div className="bg-white border-2 border-gray-200 rounded-lg p-6 mb-6">
-                  <h3 className="font-bold text-lg text-gray-900 mb-4 pb-3 border-b-2 border-gray-100">
+                <div className="bg-white border-2 border-gray-200 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-2 border-gray-100">
                     Nota Pembelian
                   </h3>
                   
-                  <div className="space-y-3 text-sm">
+                  <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Tanggal</span>
                       <span className="font-semibold text-gray-900">
@@ -955,8 +955,8 @@ export default function HostingPHP() {
                     <hr className="my-3" />
                     
                     <div className="flex justify-between items-center pt-2">
-                      <span className="text-lg font-bold text-gray-900">Total</span>
-                      <span className="text-2xl font-black text-primary">
+                      <span className="text-base sm:text-lg font-bold text-gray-900">Total</span>
+                      <span className="text-lg sm:text-2xl font-black text-primary">
                         {formatPrice(getPricing())}
                       </span>
                     </div>
@@ -964,14 +964,14 @@ export default function HostingPHP() {
                 </div>
 
                 {/* Info Selanjutnya */}
-                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-6">
-                  <h3 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
+                  <h3 className="text-sm sm:text-base font-bold text-blue-900 mb-2 sm:mb-3 flex items-center gap-2">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                     </svg>
                     Langkah Selanjutnya
                   </h3>
-                  <ul className="space-y-2 text-sm text-blue-900">
+                  <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-blue-900">
                     <li className="flex gap-2">
                       <span className="font-bold">1.</span>
                       <span>Tim kami akan memverifikasi pembayaran Anda</span>
@@ -992,16 +992,16 @@ export default function HostingPHP() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <motion.a
                     href={`https://wa.me/62882008146761?text=Halo,%20saya%20sudah%20melakukan%20pembayaran%20dengan%20nomor%20resi:%20${resiNumber}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex-1 px-6 py-4 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2"
+                    className="flex-1 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2"
                   >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                     </svg>
                     Hubungi via WhatsApp
@@ -1010,7 +1010,7 @@ export default function HostingPHP() {
                     href="/"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex-1 px-6 py-4 bg-primary text-white font-bold rounded-lg hover:bg-primary-dark transition-all text-center"
+                    className="flex-1 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base bg-primary text-white font-bold rounded-lg hover:bg-primary-dark transition-all text-center"
                   >
                     Kembali ke Beranda
                   </motion.a>
