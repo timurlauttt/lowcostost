@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import TentangKami from './pages/TentangKami.jsx'
@@ -19,6 +19,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/hosting/php" element={<HostingPHP />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/cek-status" element={<CekStatus />} />
+        {/* Catch all - redirect to home for any unknown routes */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

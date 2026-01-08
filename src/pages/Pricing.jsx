@@ -7,6 +7,7 @@ import ScrollToTop from '../components/ScrollToTop';
 
 export default function Pricing() {
   const [activeTab, setActiveTab] = useState('hosting-php');
+  const [selectedDuration, setSelectedDuration] = useState('1'); // Default 1 bulan untuk hosting-domain
 
   const pricingData = {
     'hosting-php': {
@@ -44,50 +45,52 @@ export default function Pricing() {
       title: 'Paket Hosting + Domain',
       subtitle: 'Bundle Hosting & Domain',
       color: 'green',
-      segments: [
-        {
-          duration: '1 Bulan',
-          packages: [
-            { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp80.000' },
-            { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp100.000' },
-            { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp120.000' },
-            { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp275.000' },
-            { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp300.000' },
-            { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp325.000' },
-            { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp300.000' },
-            { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp325.000' },
-            { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp350.000' }
-          ]
-        },
-        {
-          duration: '6 Bulan',
-          packages: [
-            { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp280.000' },
-            { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp405.000' },
-            { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp530.000' },
-            { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp475.000' },
-            { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp600.000' },
-            { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp725.000' },
-            { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp500.000' },
-            { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp625.000' },
-            { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp750.000' }
-          ]
-        },
-        {
-          duration: '12 Bulan',
-          packages: [
-            { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp500.000' },
-            { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp750.000' },
-            { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp1.030.000' },
-            { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp725.000' },
-            { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp975.000' },
-            { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp1.000.000' },
-            { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp750.000' },
-            { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp1.000.000' },
-            { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp1.250.000' }
-          ]
-        }
-      ]
+      durations: {
+        '1': [
+          { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp80.000' },
+          { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp100.000' },
+          { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp120.000' },
+          { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp275.000' },
+          { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp300.000' },
+          { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp325.000' },
+          { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp300.000' },
+          { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp325.000' },
+          { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp350.000' }
+        ],
+        '3': [
+          { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp240.000' },
+          { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp300.000' },
+          { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp360.000' },
+          { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp825.000' },
+          { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp900.000' },
+          { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp975.000' },
+          { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp900.000' },
+          { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp975.000' },
+          { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp1.050.000' }
+        ],
+        '6': [
+          { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp280.000' },
+          { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp405.000' },
+          { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp530.000' },
+          { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp475.000' },
+          { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp600.000' },
+          { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp725.000' },
+          { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp500.000' },
+          { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp625.000' },
+          { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp750.000' }
+        ],
+        '12': [
+          { name: 'Paket Silver 1', spec: 'Small + .my.id', price: 'Rp500.000' },
+          { name: 'Paket Gold 1', spec: 'Medium + .my.id', price: 'Rp750.000' },
+          { name: 'Paket Diamond 1', spec: 'Large + .my.id', price: 'Rp1.030.000' },
+          { name: 'Paket Silver 2', spec: 'Small + .com', price: 'Rp725.000' },
+          { name: 'Paket Gold 2', spec: 'Medium + .com', price: 'Rp975.000' },
+          { name: 'Paket Diamond 2', spec: 'Large + .com', price: 'Rp1.000.000' },
+          { name: 'Paket Silver 3', spec: 'Small + .id', price: 'Rp750.000' },
+          { name: 'Paket Gold 3', spec: 'Medium + .id', price: 'Rp1.000.000' },
+          { name: 'Paket Diamond 3', spec: 'Large + .id', price: 'Rp1.250.000' }
+        ]
+      }
     },
     'custom-project': {
       title: 'Harga Custom Project',
@@ -286,9 +289,85 @@ export default function Pricing() {
             </motion.p>
           )}
 
+          {/* Duration Selector untuk Hosting+Domain */}
+          {activeTab === 'hosting-domain' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="max-w-md mx-auto mb-12"
+            >
+              <label className="block text-center text-gray-700 font-bold mb-3 text-lg">
+                Pilih Durasi:
+              </label>
+              <select
+                value={selectedDuration}
+                onChange={(e) => setSelectedDuration(e.target.value)}
+                className="w-full px-6 py-4 text-lg font-bold text-center rounded-lg border-2 border-primary bg-white text-gray-900 focus:outline-none focus:ring-4 focus:ring-primary/30 transition-all cursor-pointer shadow-lg hover:shadow-xl"
+              >
+                <option value="1">1 Bulan</option>
+                <option value="3">3 Bulan</option>
+                <option value="6">6 Bulan</option>
+                <option value="12">12 Bulan</option>
+              </select>
+            </motion.div>
+          )}
+
           {/* Pricing Tables - Loop through segments */}
-          <div className={`grid grid-cols-1 ${activeTab === 'custom-project' ? 'max-w-4xl mx-auto' : 'lg:grid-cols-3'} gap-6 lg:gap-8 mb-12`}>
-            {pricingData[activeTab].segments.map((segment, segmentIndex) => {
+          <div className={`grid grid-cols-1 ${activeTab === 'custom-project' ? 'max-w-4xl mx-auto' : activeTab === 'hosting-domain' ? 'lg:grid-cols-1 max-w-4xl mx-auto' : 'lg:grid-cols-3'} gap-6 lg:gap-8 mb-12`}>
+            {activeTab === 'hosting-domain' ? (
+              // Render hosting-domain dengan durasi terpilih
+              <motion.div
+                key={selectedDuration}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col"
+              >
+                <div className="bg-green-500 text-white px-4 py-4 rounded-t-lg">
+                  <h3 className="text-xl font-bold text-center">
+                    {selectedDuration === '1' ? '1 Bulan' : selectedDuration === '3' ? '3 Bulan' : selectedDuration === '6' ? '6 Bulan' : '12 Bulan'}
+                  </h3>
+                </div>
+                
+                <div className="bg-white rounded-lg rounded-t-none border-2 border-green-500 overflow-hidden shadow-lg flex-1">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+                    {pricingData['hosting-domain'].durations[selectedDuration].map((pkg, index) => {
+                      const getBadgeColor = (name) => {
+                        if (name.includes('Silver')) return 'bg-cyan-500';
+                        if (name.includes('Gold')) return 'bg-green-500';
+                        if (name.includes('Diamond')) return 'bg-orange-500';
+                        return 'bg-purple-600';
+                      };
+                      
+                      return (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.05 }}
+                          className="p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:shadow-lg transition-all bg-white"
+                        >
+                          <div className="flex flex-col items-center text-center">
+                            <span className={`px-3 py-1.5 ${getBadgeColor(pkg.name)} text-white font-bold rounded-lg text-sm mb-3`}>
+                              {pkg.name}
+                            </span>
+                            <div className="text-gray-600 text-sm mb-3">
+                              {pkg.spec}
+                            </div>
+                            <span className="font-bold text-gray-900 text-lg">
+                              {pkg.price}
+                            </span>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              // Render untuk hosting-php dan custom-project seperti biasa
+              pricingData[activeTab].segments.map((segment, segmentIndex) => {
                 const colorScheme = {
                   cyan: {
                     bg: 'bg-cyan-500',
@@ -370,7 +449,8 @@ export default function Pricing() {
                     </div>
                   </motion.div>
                 );
-              })}
+              })
+            )}
             </div>
 
           {/* Section khusus untuk Custom Project */}

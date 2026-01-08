@@ -5,9 +5,16 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
+    'Navigasi Cepat': [
+      { name: 'Beranda', href: '/' },
+      { name: 'Tentang Kami', href: '/tentang-kami' },
+      { name: 'Hosting', href: '/hosting' },
+      { name: 'Pricing', href: '/pricing' },
+      { name: 'Cek Status', href: '/cek-status' }
+    ],
     'Produk & Layanan': [
-      { name: 'Paket Hosting', href: '#pricing' },
-      { name: 'Custom Project', href: '#pricing' },
+      { name: 'Paket Hosting', href: '/pricing' },
+      { name: 'Custom Project', href: '/pricing' },
     ],
     'Keunggulan': [
       { name: 'Hosting tanpa ribet & ready to use', href: '#features' },
@@ -24,7 +31,7 @@ export default function Footer() {
   return (
     <footer className="bg-primary-dark text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 mb-12">
           {/* Brand Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -38,7 +45,7 @@ export default function Footer() {
               className="h-12 mb-4 brightness-0 invert"
             />
             <p className="text-white/80 text-sm leading-relaxed mb-4">
-              Digital Digital Solutions Without Barriers,Affordable, Accessible, and Scalable
+              Digital Digital Solutions Without Barriers. 
             </p>
             <div className="flex gap-4">
               <motion.a

@@ -36,7 +36,8 @@ export default function HostingPHP() {
     { value: 'wordpress', label: 'WordPress' },
     { value: 'laravel', label: 'Laravel' },
     { value: 'codeigniter', label: 'CodeIgniter' },
-    { value: 'php-native', label: 'PHP Native' }
+    { value: 'php-native', label: 'PHP Native' },
+    { value: 'html+css', label: 'HTML + CSS' }
   ];
 
   const packageTypes = [
@@ -92,7 +93,7 @@ export default function HostingPHP() {
   const getDomainOptions = () => {
     if (formData.packageType === 'hosting-only') {
       return [
-        { value: 'subdomain', label: 'Subdomain Gratis (.lowcosthost.id)' }
+        { value: 'subdomain', label: 'Subdomain Gratis' }
       ];
     } else {
       return [
@@ -446,7 +447,7 @@ export default function HostingPHP() {
                               <p className="font-bold text-gray-900">{pkg.label}</p>
                               <p className="text-xs text-gray-600 mt-1">
                                 {pkg.value === 'hosting-only' 
-                                  ? 'Gratis subdomain .lowcosthost.id' 
+                                  ? 'Gratis subdomain' 
                                   : 'Pilih domain .my.id, .com, atau .id'}
                               </p>
                             </div>
@@ -575,7 +576,7 @@ export default function HostingPHP() {
                     />
                     {formData.domainType === 'subdomain' && (
                       <span className="flex items-center px-4 py-3 bg-gray-100 text-gray-600 rounded-lg border-2 border-gray-200 whitespace-nowrap">
-                        .lowcosthost.id
+                        domain
                       </span>
                     )}
                   </div>

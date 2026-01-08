@@ -9,7 +9,7 @@ export default function TentangKami() {
     {
       icon: Eye,
       title: 'Visi',
-      description: 'Menjadi penyedia layanan hosting dan solusi IT terpercaya yang membantu UMKM, blogger, dan perusahaan di Indonesia untuk berkembang di era digital dengan harga yang terjangkau.',
+      description: 'Menjadi penyedia layanan hosting dan solusi IT terpercaya yang membantu mahasiswa, UMKM, blogger, dan perusahaan di Indonesia untuk berkembang di era digital dengan harga yang terjangkau.',
       color: 'from-primary to-primary-dark'
     },
     {
@@ -225,13 +225,13 @@ export default function TentangKami() {
               </h2>
               <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
                 <p>
-                  <span className="font-bold text-primary">LowCostHost</span> lahir dari kebutuhan nyata — memberikan solusi hosting berkualitas yang terjangkau untuk semua kalangan. Kami percaya bahwa setiap bisnis, besar maupun kecil, berhak memiliki kehadiran digital yang kuat.
+                  <span className="font-bold text-primary">LowCostHost</span> hadir sebagai solusi inovatif bagi mahasiswa, UMKM, dan teman-teman yang baru memulai yang membutuhkan layanan hosting berkualitas dengan harga terjangkau. Kami memahami bahwa dalam perjalanan akademis dan pengembangan portofolio digital, setiap investasi harus memberikan nilai maksimal tanpa membebani anggaran.
                 </p>
                 <p>
-                  Dengan pengalaman bertahun-tahun di industri IT, kami memahami tantangan yang dihadapi oleh UMKM, blogger, dan startup dalam membangun infrastruktur digital mereka. Inilah mengapa kami hadir dengan solusi yang tidak hanya terjangkau, tetapi juga handal dan profesional.
+                  Sebagai platform yang sedang berkembang, kami didukung oleh tim dengan keahlian teknis yang kompeten dan track record yang terbukti dalam mengelola infrastruktur web. Kami menghadirkan ekosistem hosting yang tidak hanya ekonomis, tetapi juga menjamin reliabilitas, keamanan data, serta dukungan teknis yang responsif untuk setiap kebutuhan Anda.
                 </p>
                 <p>
-                  Setiap hari, kami bekerja keras untuk memastikan server Anda berjalan optimal, data Anda aman, dan support kami responsif. Karena kesuksesan Anda adalah kesuksesan kami juga.
+                  Komitmen kami adalah memastikan setiap server beroperasi dengan performa optimal, data Anda terlindungi dengan standar keamanan terkini, dan tim support kami selalu siaga untuk memberikan solusi. Kami percaya bahwa keterbatasan anggaran tidak boleh menjadi penghalang untuk memiliki infrastruktur digital yang profesional dan andal.
                 </p>
               </div>
             </motion.div>

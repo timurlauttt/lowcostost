@@ -8,9 +8,7 @@ export default function Navbar() {
   const location = useLocation();
 
   const menuItems = [
-    { name: 'Produk', href: '/#pricing', external: false },
-    { name: 'Keunggulan', href: '/#features', external: false },
-    { name: 'Kontak', href: '/#contact', external: false },
+    { name: 'Beranda', href: '/', external: false },
     { name: 'Harga', href: '/pricing', external: false },
     { name: 'Tentang Kami', href: '/tentang-kami', external: false },
     { name: 'Cek Status', href: '/cek-status', external: false },
@@ -34,7 +32,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 backdrop-blur-sm shadow-lg shadow-blue-900/20">
+    <nav className="sticky top-0 z-50 bg-gradient-to-br from-indigo-900 via-blue-900 to-slate-900 backdrop-blur-sm shadow-lg shadow-blue-900/20">
       <div className="flex items-center justify-between px-12 sm:px-16 md:px-24 lg:px-32 py-3 sm:py-4">
         <motion.div
           initial={{ opacity: 0, x: -20 }}

@@ -46,7 +46,7 @@ export default function FeatureGrid() {
           viewport={{ once: true, amount: 0.1 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-dark mb-4">
             Keunggulan Kami
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
