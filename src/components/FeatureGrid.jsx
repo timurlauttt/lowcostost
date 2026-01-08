@@ -86,26 +86,6 @@ export default function FeatureGrid() {
             </motion.div>
           ))}
         </div>
-
-        {/* Call to Action Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex justify-center mt-12 sm:mt-16"
-        >
-          <Link to="/pricing">
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 20px 60px rgba(56, 189, 248, 0.4)' }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg font-bold overflow-hidden transition-all duration-300 flex items-center gap-3 text-base sm:text-lg"
-            >
-              <span className="relative z-10">Lihat Selengkapnya</span>
-              <ArrowRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

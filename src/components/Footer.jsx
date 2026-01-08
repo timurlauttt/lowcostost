@@ -7,18 +7,17 @@ export default function Footer() {
   const footerLinks = {
     'Produk & Layanan': [
       { name: 'Paket Hosting', href: '#pricing' },
-      { name: 'Domain', href: '#pricing' },
-      { name: 'Pendaftaran', href: '#contact' }
+      { name: 'Custom Project', href: '#pricing' },
     ],
     'Keunggulan': [
-      { name: 'SSL Gratis', href: '#features' },
-      { name: 'Backup Harian', href: '#features' },
-      { name: 'Support 24/7', href: '#features' }
+      { name: 'Hosting tanpa ribet & ready to use', href: '#features' },
+      { name: 'Harga terjangkau dengan layanan profesional', href: '#features' },
+      { name: 'Keamanan data terjamin', href: '#features' }
     ],
     'Kontak': [
-      { name: 'WhatsApp', href: 'https://wa.me/62882008146761' },
       { name: 'Email', href: 'mailto:admin@lowcosthost.id' },
-      { name: 'Instagram', href: 'https://instagram.com/lowcosthost.id' }
+      { name: 'Instagram', href: 'https://instagram.com/lowcosthost.id' },
+      { name: 'WhatsApp', href: 'https://wa.me/62882008146761' },
     ]
   };
 
@@ -39,8 +38,7 @@ export default function Footer() {
               className="h-12 mb-4 brightness-0 invert"
             />
             <p className="text-white/80 text-sm leading-relaxed mb-4">
-              Solusi hosting terjangkau untuk UMKM, blogger, dan perusahaan. 
-              Wujudkan website impian Anda bersama kami!
+              Digital Digital Solutions Without Barriers,Affordable, Accessible, and Scalable
             </p>
             <div className="flex gap-4">
               <motion.a

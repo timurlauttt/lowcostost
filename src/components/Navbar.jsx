@@ -8,12 +8,12 @@ export default function Navbar() {
   const location = useLocation();
 
   const menuItems = [
-    { name: 'Beranda', href: '/', external: false },
     { name: 'Produk', href: '/#pricing', external: false },
-    { name: 'Harga', href: '/pricing', external: false },
     { name: 'Keunggulan', href: '/#features', external: false },
     { name: 'Kontak', href: '/#contact', external: false },
+    { name: 'Harga', href: '/pricing', external: false },
     { name: 'Tentang Kami', href: '/tentang-kami', external: false },
+    { name: 'Cek Status', href: '/cek-status', external: false },
   ];
 
   const handleClick = (href) => {
@@ -97,7 +97,7 @@ export default function Navbar() {
               to="/hosting"
               className="px-6 py-2.5 bg-white text-primary-dark font-bold rounded-lg hover:shadow-lg hover:shadow-white/30 transition-all inline-block"
             >
-              Daftar Hosting
+              Hosting Sekarang
             </Link>
           </motion.div>
         </div>
@@ -156,7 +156,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)}
             className="block px-6 py-3 bg-white text-primary-dark font-bold rounded-lg text-center hover:bg-primary hover:text-white transition-all"
           >
-            Daftar Hosting
+            Hosting Sekarang
           </Link>
         </div>
       </motion.div>

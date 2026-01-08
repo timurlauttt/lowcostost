@@ -11,7 +11,7 @@ export default function Pricing() {
   const pricingData = {
     'hosting-php': {
       title: 'Layanan Hosting PHP Bulanan',
-      subtitle: 'Hosting Only (Tanpa Domain), Free Subdomain',
+      subtitle: 'Hosting Only , Free Subdomain',
       color: 'cyan',
       segments: [
         {
@@ -395,8 +395,7 @@ export default function Pricing() {
                     <div className="text-center mb-4">
                       <div className="text-4xl mb-2">🌐</div>
                       <h4 className="font-bold text-lg">Website dinamis & interaktif</h4>
-                      <p className="text-sm text-white/80 mt-2">oemahlahu.com</p>
-                      <p className="text-sm text-white/80">smklamasiswapwt.sch.id</p>
+
                     </div>
                     <motion.a
                       href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20info%20project%20website"
@@ -420,8 +419,7 @@ export default function Pricing() {
                     <div className="text-center mb-4">
                       <div className="text-4xl mb-2">📱</div>
                       <h4 className="font-bold text-lg">Mobile App Project</h4>
-                      <p className="text-sm text-white/80 mt-2">PetalokaApp</p>
-                      <p className="text-sm text-white/80">HokiApp</p>
+
                     </div>
                     <motion.a
                       href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20info%20project%20mobile%20app"
@@ -488,13 +486,10 @@ export default function Pricing() {
               {[
                 'SSL Gratis',
                 'Email Support 24/7',
-                'Control Panel (cPanel/DirectAdmin)',
-                'Backup Berkala',
                 'Free Migration',
                 'Unlimited Bandwidth',
-                'Free Subdomain .jeniso.com',
+                'Free Subdomain',
                 'PHP & MySQL Support',
-                'One-Click Installer'
               ].map((feature, index) => (
                 <motion.div
                   key={index}
@@ -561,7 +556,7 @@ export default function Pricing() {
                 
                 <h3 className="text-3xl sm:text-4xl font-black mb-6">
                   Custom Project:<br />
-                  <span className="text-4xl sm:text-5xl">Start From 500.000</span>
+                  <span className="text-4xl sm:text-5xl">Start From 299.000</span>
                 </h3>
 
                 <motion.a

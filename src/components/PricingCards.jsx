@@ -16,7 +16,6 @@ export default function PricingCards() {
         'SSL Gratis',
         'Email Support 24/7',
         'Control Panel',
-        'Backup Harian',
         'Free Migration'
       ]
     },
@@ -29,11 +28,10 @@ export default function PricingCards() {
       badge: 'Paling Populer',
       features: [
         'Max File 512MB',
-        'Free Subdomain .jeniso.com',
+        'Free Subdomain',
         'SSL Gratis',
         'Email Support',
         'Control Panel',
-        'Backup Berkala'
       ]
     },
     {
@@ -47,10 +45,7 @@ export default function PricingCards() {
         'Free Domain .com',
         'SSL Gratis',
         'Priority Support 24/7',
-        'Control Panel',
-        'Backup Harian',
         'Free Migration',
-        'WhatsApp Support'
       ]
     }
   ];
@@ -157,20 +152,6 @@ export default function PricingCards() {
             </motion.div>
           ))}
         </div>
-
-        {/* Domain Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          className="mt-12 text-center p-6 bg-primary/5 rounded-lg border border-primary/20"
-        >
-          <p className="text-gray-700">
-            <span className="font-bold text-primary-dark">Domain mulai Rp 10.000/tahun</span> — 
-            Dapatkan diskon spesial saat bundling dengan paket hosting!
-          </p>
-        </motion.div>
-
         {/* Call to Action Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

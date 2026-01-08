@@ -1,0 +1,534 @@
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { Search, CheckCircle, XCircle, Clock, Server, Globe, Calendar, AlertCircle } from 'lucide-react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import ScrollToTop from '../components/ScrollToTop';
+
+export default function CekStatus() {
+  const [domain, setDomain] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+
+  // Simulasi data hosting (dalam production, ini akan fetch dari API)
+  const hostingData = {
+    'contoh.com': {
+      status: 'active',
+      domain: 'contoh.com',
+      paket: 'Medium Hosting',
+      tglAktif: '15 Desember 2025',
+      tglExpired: '15 Desember 2026',
+      sisaHari: 341,
+      storage: {
+        used: '512 MB',
+        total: '1 GB',
+        percentage: 50
+      },
+      bandwidth: {
+        used: '2.5 GB',
+        total: 'Unlimited',
+        percentage: 0
+      },
+      ssl: true,
+      backup: 'Aktif',
+      cpanel: 'https://cpanel.contoh.com'
+    },
+    'example.id': {
+      status: 'expired',
+      domain: 'example.id',
+      paket: 'Small Hosting',
+      tglAktif: '10 Juni 2025',
+      tglExpired: '10 Desember 2025',
+      sisaHari: -29,
+      storage: {
+        used: '256 MB',
+        total: '512 MB',
+        percentage: 50
+      },
+      bandwidth: {
+        used: '1.2 GB',
+        total: 'Unlimited',
+        percentage: 0
+      },
+      ssl: false,
+      backup: 'Nonaktif',
+      cpanel: 'https://cpanel.example.id'
+    },
+    'testing.my.id': {
+      status: 'warning',
+      domain: 'testing.my.id',
+      paket: 'Large Hosting + Domain',
+      tglAktif: '20 November 2025',
+      tglExpired: '20 Januari 2026',
+      sisaHari: 12,
+      storage: {
+        used: '1.8 GB',
+        total: '2 GB',
+        percentage: 90
+      },
+      bandwidth: {
+        used: '8.5 GB',
+        total: 'Unlimited',
+        percentage: 0
+      },
+      ssl: true,
+      backup: 'Aktif',
+      cpanel: 'https://cpanel.testing.my.id'
+    }
+  };
+
+  const handleCheck = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    // Simulasi loading
+    setTimeout(() => {
+      const cleanDomain = domain.toLowerCase().trim();
+      const data = hostingData[cleanDomain];
+      
+      if (data) {
+        setResult(data);
+      } else {
+        setResult({ status: 'notfound', domain: cleanDomain });
+      }
+      setLoading(false);
+    }, 1500);
+  };
+
+  const getStatusBadge = (status, sisaHari) => {
+    if (status === 'expired') {
+      return {
+        text: 'Expired',
+        color: 'bg-red-500',
+        icon: XCircle
+      };
+    } else if (status === 'warning' || sisaHari < 30) {
+      return {
+        text: 'Akan Expired',
+        color: 'bg-yellow-500',
+        icon: AlertCircle
+      };
+    } else if (status === 'active') {
+      return {
+        text: 'Aktif',
+        color: 'bg-green-500',
+        icon: CheckCircle
+      };
+    }
+    return {
+      text: 'Unknown',
+      color: 'bg-gray-500',
+      icon: Clock
+    };
+  };
+
+  return (
+    <div className="antialiased bg-white">
+      <Navbar />
+
+      {/* Hero Section */}
+      <section className="py-20 sm:py-32 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+        {/* Animated background gradient orbs */}
+        <motion.div 
+          className="absolute w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, 80, 0],
+            y: [0, -60, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ top: '-15%', left: '-15%' }}
+        />
+        
+        <motion.div 
+          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ bottom: '-15%', right: '-15%' }}
+        />
+
+        <motion.div 
+          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-primary/25 to-cyan-400/25 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.6, 0.4],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+        />
+
+        {/* Floating particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-300/40 rounded-full"
+            animate={{
+              y: [0, -1000],
+              x: [0, Math.random() * 200 - 100],
+              opacity: [0, 0.8, 0],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "linear"
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: '100%',
+            }}
+          />
+        ))}
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6"
+          >
+            Cek Status Hosting
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg sm:text-xl text-white/90 mb-8"
+          >
+            Masukkan nama domain Anda untuk mengecek status hosting
+          </motion.p>
+
+          {/* Search Form */}
+          <motion.form
+            onSubmit={handleCheck}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="max-w-2xl mx-auto"
+          >
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex-1 relative">
+                <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  value={domain}
+                  onChange={(e) => setDomain(e.target.value)}
+                  placeholder="Masukkan domain (contoh: namadomain.com)"
+                  className="w-full pl-12 pr-4 py-4 rounded-lg border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:outline-none focus:border-white/40 transition-all"
+                  required
+                />
+              </div>
+              <motion.button
+                type="submit"
+                disabled={loading}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-white text-primary-dark font-bold rounded-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 border-2 border-primary-dark border-t-transparent rounded-full"
+                    />
+                    Checking...
+                  </>
+                ) : (
+                  <>
+                    <Search className="w-5 h-5" />
+                    Cek Status
+                  </>
+                )}
+              </motion.button>
+            </div>
+          </motion.form>
+        </div>
+      </section>
+
+      {/* Results Section */}
+      {result && (
+        <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-gray-50 to-white">
+          <div className="max-w-5xl mx-auto">
+            {result.status === 'notfound' ? (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-lg border-2 border-gray-200 p-8 text-center shadow-lg"
+              >
+                <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Domain Tidak Ditemukan</h3>
+                <p className="text-gray-600 mb-6">
+                  Domain <span className="font-semibold text-primary">{result.domain}</span> tidak terdaftar dalam sistem kami.
+                </p>
+                <p className="text-sm text-gray-500 mb-6">
+                  Pastikan domain yang Anda masukkan sudah benar atau hubungi admin untuk informasi lebih lanjut.
+                </p>
+                <motion.a
+                  href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20bertanya%20tentang%20status%20hosting"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-dark transition-all"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  Hubungi Admin
+                </motion.a>
+              </motion.div>
+            ) : (
+              <>
+                {/* Status Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-8"
+                >
+                  {(() => {
+                    const statusBadge = getStatusBadge(result.status, result.sisaHari);
+                    const StatusIcon = statusBadge.icon;
+                    return (
+                      <div className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg">
+                        <div className="flex items-center justify-between flex-wrap gap-4">
+                          <div className="flex items-center gap-4">
+                            <div className={`w-16 h-16 ${statusBadge.color} rounded-lg flex items-center justify-center`}>
+                              <StatusIcon className="w-8 h-8 text-white" />
+                            </div>
+                            <div>
+                              <h2 className="text-2xl font-black text-gray-900">{result.domain}</h2>
+                              <p className="text-gray-600">Paket: {result.paket}</p>
+                            </div>
+                          </div>
+                          <div className={`px-6 py-3 ${statusBadge.color} text-white font-bold rounded-lg text-lg`}>
+                            {statusBadge.text}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </motion.div>
+
+                {/* Info Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {/* Tanggal Aktif */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <Calendar className="w-6 h-6 text-primary" />
+                      <h3 className="text-lg font-bold text-gray-900">Tanggal Aktif</h3>
+                    </div>
+                    <p className="text-2xl font-bold text-primary">{result.tglAktif}</p>
+                  </motion.div>
+
+                  {/* Tanggal Expired */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <Clock className="w-6 h-6 text-red-500" />
+                      <h3 className="text-lg font-bold text-gray-900">Tanggal Expired</h3>
+                    </div>
+                    <p className="text-2xl font-bold text-red-500">{result.tglExpired}</p>
+                    <p className="text-sm text-gray-600 mt-2">
+                      {result.sisaHari > 0 ? (
+                        <span className="text-green-600">Sisa {result.sisaHari} hari</span>
+                      ) : (
+                        <span className="text-red-600">Expired {Math.abs(result.sisaHari)} hari yang lalu</span>
+                      )}
+                    </p>
+                  </motion.div>
+                </div>
+
+                {/* Storage & Bandwidth */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  {/* Storage */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <Server className="w-6 h-6 text-primary" />
+                      <h3 className="text-lg font-bold text-gray-900">Storage</h3>
+                    </div>
+                    <div className="mb-2">
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="text-gray-600">Used: {result.storage.used}</span>
+                        <span className="text-gray-600">Total: {result.storage.total}</span>
+                      </div>
+                      <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${result.storage.percentage}%` }}
+                          transition={{ duration: 1, delay: 0.5 }}
+                          className={`h-full ${
+                            result.storage.percentage > 80 ? 'bg-red-500' : 
+                            result.storage.percentage > 60 ? 'bg-yellow-500' : 
+                            'bg-green-500'
+                          }`}
+                        />
+                      </div>
+                      <p className="text-sm text-gray-600 mt-2">{result.storage.percentage}% terpakai</p>
+                    </div>
+                  </motion.div>
+
+                  {/* Bandwidth */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <Globe className="w-6 h-6 text-primary" />
+                      <h3 className="text-lg font-bold text-gray-900">Bandwidth</h3>
+                    </div>
+                    <div className="mb-2">
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="text-gray-600">Used: {result.bandwidth.used}</span>
+                        <span className="text-gray-600">Total: {result.bandwidth.total}</span>
+                      </div>
+                      <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-green-500 w-full" />
+                      </div>
+                      <p className="text-sm text-gray-600 mt-2">Unlimited</p>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Additional Info */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg mb-8"
+                >
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">Informasi Tambahan</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="flex items-center gap-3">
+                      {result.ssl ? (
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                      ) : (
+                        <XCircle className="w-5 h-5 text-red-500" />
+                      )}
+                      <div>
+                        <p className="text-sm text-gray-600">SSL Certificate</p>
+                        <p className="font-semibold">{result.ssl ? 'Aktif' : 'Nonaktif'}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <div>
+                        <p className="text-sm text-gray-600">Backup</p>
+                        <p className="font-semibold">{result.backup}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Server className="w-5 h-5 text-primary" />
+                      <div>
+                        <p className="text-sm text-gray-600">Status Server</p>
+                        <p className="font-semibold text-green-500">Online</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Action Buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="flex flex-col sm:flex-row gap-4"
+                >
+                  {result.sisaHari < 30 && result.sisaHari > 0 && (
+                    <a
+                      href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20perpanjang%20hosting"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 px-6 py-4 bg-green-500 text-white font-bold rounded-lg text-center hover:bg-green-600 hover:shadow-xl transition-all"
+                    >
+                      Perpanjang Sekarang
+                    </a>
+                  )}
+                  {result.status === 'expired' && (
+                    <a
+                      href="https://wa.me/62882008146761?text=Halo,%20hosting%20saya%20expired,%20bagaimana%20cara%20perpanjang?"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 px-6 py-4 bg-red-500 text-white font-bold rounded-lg text-center hover:bg-red-600 hover:shadow-xl transition-all"
+                    >
+                      Hubungi Admin
+                    </a>
+                  )}
+                </motion.div>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Info Section */}
+      <section className="py-16 px-4 sm:px-6 md:px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl font-bold text-primary-dark mb-6 text-center">
+            Contoh Domain untuk Testing
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <motion.button
+              onClick={() => setDomain('contoh.com')}
+              whileHover={{ scale: 1.05 }}
+              className="p-4 bg-green-50 border-2 border-green-200 rounded-lg hover:border-green-400 transition-all"
+            >
+              <p className="font-bold text-green-700">contoh.com</p>
+              <p className="text-sm text-green-600">Status: Aktif</p>
+            </motion.button>
+            <motion.button
+              onClick={() => setDomain('testing.my.id')}
+              whileHover={{ scale: 1.05 }}
+              className="p-4 bg-yellow-50 border-2 border-yellow-200 rounded-lg hover:border-yellow-400 transition-all"
+            >
+              <p className="font-bold text-yellow-700">testing.my.id</p>
+              <p className="text-sm text-yellow-600">Status: Akan Expired</p>
+            </motion.button>
+            <motion.button
+              onClick={() => setDomain('example.id')}
+              whileHover={{ scale: 1.05 }}
+              className="p-4 bg-red-50 border-2 border-red-200 rounded-lg hover:border-red-400 transition-all"
+            >
+              <p className="font-bold text-red-700">example.id</p>
+              <p className="text-sm text-red-600">Status: Expired</p>
+            </motion.button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+      <ScrollToTop />
+    </div>
+  );
+}
