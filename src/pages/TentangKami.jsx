@@ -82,7 +82,7 @@ export default function TentangKami() {
       <section className="py-20 sm:py-32 px-4 sm:px-6 md:px-8 relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}>
         {/* Animated background gradient orbs */}
         <motion.div 
-          className="absolute w-[600px] h-[600px] bg-gradient-to-br from-white to-blue-200 rounded-full blur-3xl"
+          className="absolute w-[600px] h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-3xl"
           animate={{
             x: [0, 80, 0],
             y: [0, -60, 0],
@@ -97,7 +97,7 @@ export default function TentangKami() {
         />
         
         <motion.div 
-          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-blue-200 to-white rounded-full blur-3xl"
+          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-3xl"
           animate={{
             x: [0, -80, 0],
             y: [0, 60, 0],
@@ -112,7 +112,7 @@ export default function TentangKami() {
         />
 
         <motion.div 
-          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-white/60 to-cyan-100/60 rounded-full blur-3xl"
+          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.4, 0.6, 0.4],
