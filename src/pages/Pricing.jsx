@@ -114,7 +114,7 @@ export default function Pricing() {
   const tabs = [
     { id: 'hosting-php', label: 'Hosting PHP', shortLabel: 'Hosting PHP', icon: Server },
     { id: 'hosting-domain', label: 'Hosting + Domain', shortLabel: 'Hosting + Domain', icon: Globe },
-    { id: 'custom-project', label: 'Custom Project', shortLabel: 'Custom', icon: Server },
+    { id: 'custom-project', label: 'Custom Project', shortLabel: 'Custom Project', icon: Server },
   ];
 
   const benefits = [
@@ -624,7 +624,7 @@ export default function Pricing() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.1 }}
               whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-br from-primary via-primary-dark to-primary text-white rounded-lg p-8 shadow-2xl relative overflow-hidden"
+              className="text-white rounded-lg p-8 shadow-2xl relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}
             >
               <div className="absolute inset-0 opacity-10">
                 <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2px)', backgroundSize: '20px 20px' }}></div>

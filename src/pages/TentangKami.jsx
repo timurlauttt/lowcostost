@@ -44,10 +44,11 @@ export default function TentangKami() {
   ];
 
   const stats = [
-    { icon: Users, number: '100+', label: 'Pelanggan Aktif', color: 'primary' },
-    { icon: Clock, number: '99.9%', label: 'Uptime Guarantee', color: 'primary-dark' },
-    { icon: Zap, number: '<5min', label: 'Response Time', color: 'primary' },
-    { icon: TrendingUp, number: '5+', label: 'Tahun Pengalaman', color: 'primary-dark' }
+    { icon: Target, title: 'Setup Instan', description: 'Website langsung aktif tanpa perlu konfigurasi rumit' },
+    { icon: Shield, title: 'SSL Otomatis', description: 'Sertifikat SSL langsung terpasang, tanpa ribet install manual' },
+    { icon: Heart, title: 'Support Ramah', description: 'Bantuan cepat dan mudah dipahami, tanpa istilah teknis ribet' },
+    { icon: Zap, title: 'Performa Stabil', description: 'Website cepat dan stabil, tanpa perlu optimasi manual' },
+    { icon: Rocket, title: 'Keamanan Terjamin', description: 'Perlindungan lengkap aktif otomatis, tanpa setup rumit' }
   ];
 
   const team = [
@@ -181,8 +182,8 @@ export default function TentangKami() {
 
       {/* Stats Section */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -196,14 +197,16 @@ export default function TentangKami() {
                 <motion.div
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
-                  className="inline-flex items-center justify-center w-14 h-14 bg-primary rounded-lg mb-4"
+                  className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-lg mb-4 p-0.5"
                 >
-                  <stat.icon className="w-7 h-7 text-white" />
+                  <div className="w-full h-full bg-white rounded-lg flex items-center justify-center">
+                    <stat.icon className="w-8 h-8 text-primary" />
+                  </div>
                 </motion.div>
-                <div className="text-3xl sm:text-4xl font-black text-primary-dark mb-2">
-                  {stat.number}
-                </div>
-                <p className="text-sm text-gray-600 font-medium">{stat.label}</p>
+                <h3 className="text-lg font-bold text-primary-dark mb-2">
+                  {stat.title}
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{stat.description}</p>
               </motion.div>
             ))}
           </div>
@@ -403,10 +406,10 @@ export default function TentangKami() {
       </section>
 
       {/* CTA Section with Animation */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+      <section className="py-20 sm:py-32 px-4 sm:px-6 md:px-8 relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}>
         {/* Animated background gradient orbs */}
         <motion.div 
-          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
+          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
           animate={{
             x: [0, 80, 0],
             y: [0, -60, 0],

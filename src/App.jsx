@@ -9,7 +9,7 @@ import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
-    <div className="antialiased bg-white">
+    <div className="antialiased bg-white overflow-x-hidden">
       <Navbar />
       <Hero />
       <PricingCards />

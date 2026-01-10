@@ -80,7 +80,7 @@ export default function PricingCards() {
               whileHover={{ y: -10 }}
               className={`relative p-8 rounded-lg border-2 transition-all duration-300 ${
                 pkg.popular
-                  ? 'bg-gradient-to-br from-primary via-primary-dark to-primary border-primary shadow-2xl shadow-primary/30 scale-105'
+                  ? 'bg-gradient-to-br from-primary via-primary-dark to-primary border-primary shadow-2xl shadow-primary/30 md:scale-105'
                   : 'bg-white border-gray-200 hover:border-primary/50 hover:shadow-xl'
               }`}
             >
@@ -139,7 +139,7 @@ export default function PricingCards() {
                 href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20order%20paket%20hosting"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
                 className={`block w-full py-3 px-6 rounded-lg font-bold text-center transition-all duration-300 ${
                   pkg.popular
@@ -162,7 +162,7 @@ export default function PricingCards() {
         >
           <Link to="/pricing">
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 20px 60px rgba(56, 189, 248, 0.4)' }}
+              whileHover={{ scale: 1.02, boxShadow: '0 20px 60px rgba(56, 189, 248, 0.4)' }}
               whileTap={{ scale: 0.98 }}
               className="group relative px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg font-bold overflow-hidden transition-all duration-300 flex items-center gap-3 text-base sm:text-lg"
             >
