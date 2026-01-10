@@ -32,7 +32,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-gradient-to-br from-indigo-900 via-blue-900 to-slate-900 backdrop-blur-sm shadow-lg shadow-blue-900/20">
+    <nav className="sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-blue-400/20" style={{ backgroundColor: '#38BDF8' }}>
       <div className="flex items-center justify-between px-12 sm:px-16 md:px-24 lg:px-32 py-3 sm:py-4">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -60,7 +60,7 @@ export default function Navbar() {
                 >
                   <Link
                     to={item.href}
-                    className="text-white hover:text-primary-dark font-medium transition-colors"
+                    className="text-white hover:text-white/80 font-medium transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -80,7 +80,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="text-white hover:text-primary-dark font-medium transition-colors"
+                className="text-white hover:text-white/80 font-medium transition-colors"
               >
                 {item.name}
               </motion.a>
@@ -116,7 +116,8 @@ export default function Navbar() {
           height: isOpen ? 'auto' : 0,
           opacity: isOpen ? 1 : 0
         }}
-        className="lg:hidden overflow-hidden bg-slate-900/95 backdrop-blur-sm border-t border-blue-800/30"
+        className="lg:hidden overflow-hidden backdrop-blur-sm border-t border-white/30"
+        style={{ backgroundColor: '#38BDF8' }}
       >
         <div className="px-12 py-6 space-y-4">
           {menuItems.map((item) => {
@@ -126,7 +127,7 @@ export default function Navbar() {
                   key={item.name}
                   to={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="block text-white hover:text-primary font-medium transition-colors py-2"
+                  className="block text-white hover:text-white/80 font-medium transition-colors py-2"
                 >
                   {item.name}
                 </Link>
@@ -143,7 +144,7 @@ export default function Navbar() {
                   }
                   setIsOpen(false);
                 }}
-                className="block text-white hover:text-primary font-medium transition-colors py-2"
+                className="block text-white hover:text-white/80 font-medium transition-colors py-2"
               >
                 {item.name}
               </a>
@@ -152,7 +153,7 @@ export default function Navbar() {
           <Link
             to="/hosting"
             onClick={() => setIsOpen(false)}
-            className="block px-6 py-3 bg-white text-primary-dark font-bold rounded-lg text-center hover:bg-primary hover:text-white transition-all"
+            className="block px-6 py-3 bg-white text-primary-dark font-bold rounded-lg text-center hover:bg-white/90 transition-all"
           >
             Hosting Sekarang
           </Link>

@@ -29,7 +29,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-primary-dark text-white">
+    <footer className="text-white" style={{ backgroundColor: '#38BDF8' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 mb-12">
           {/* Brand Column */}
@@ -93,7 +93,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-white/70 hover:text-primary hover:translate-x-1 inline-block transition-all duration-300 text-sm"
+                      className="text-white/70 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm"
                     >
                       {link.name}
                     </a>
@@ -109,8 +109,8 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/60">
             <p>© {currentYear} LowCostHost. All rights reserved.</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
             </div>
           </div>
         </div>

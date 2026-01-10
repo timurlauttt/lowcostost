@@ -10,9 +10,9 @@ export default function Hero() {
   };
 
   return (
-    <section className="min-h-[85vh] flex items-center justify-center px-4 sm:px-6 md:px-8 py-16 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+    <section className="min-h-[85vh] flex items-center justify-center px-4 sm:px-6 md:px-8 py-16 relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}>
       <motion.div 
-        className="absolute w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
+        className="absolute w-[600px] h-[600px] bg-gradient-to-br from-white to-blue-200 rounded-full blur-3xl"
         animate={{
           x: [0, 80, 0],
           y: [0, -60, 0],
@@ -27,7 +27,7 @@ export default function Hero() {
       />
       
       <motion.div 
-        className="absolute w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl"
+        className="absolute w-[500px] h-[500px] bg-gradient-to-br from-blue-200 to-white rounded-full blur-3xl"
         animate={{
           x: [0, -80, 0],
           y: [0, 60, 0],
@@ -42,7 +42,7 @@ export default function Hero() {
       />
 
       <motion.div 
-        className="absolute w-[400px] h-[400px] bg-gradient-to-br from-primary/25 to-cyan-400/25 rounded-full blur-3xl"
+        className="absolute w-[400px] h-[400px] bg-gradient-to-br from-white/60 to-cyan-100/60 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.4, 0.6, 0.4],
@@ -58,7 +58,7 @@ export default function Hero() {
       {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-cyan-300/40 rounded-full"
+          className="absolute w-1 h-1 bg-white/40 rounded-full"
           animate={{
             y: [0, -1000],
             x: [0, Math.random() * 200 - 100],
@@ -133,7 +133,7 @@ export default function Hero() {
               whileHover={{ scale: 1.05, y: -2 }}
               className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg shadow-lg"
             >
-              <feature.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-300" />
+              <feature.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
               <span className="text-xs sm:text-sm text-white font-medium">{feature.text}</span>
             </motion.div>
           ))}
@@ -148,7 +148,7 @@ export default function Hero() {
         >
           <motion.button
             onClick={scrollToProduct}
-            whileHover={{ scale: 1.05, boxShadow: '0 20px 60px rgba(56, 189, 248, 0.4)' }}
+            whileHover={{ scale: 1.05, boxShadow: '0 20px 60px rgba(255, 255, 255, 0.4)' }}
             whileTap={{ scale: 0.98 }}
             className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white text-primary-dark rounded-lg font-bold overflow-hidden transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base"
           >

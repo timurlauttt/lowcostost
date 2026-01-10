@@ -170,10 +170,10 @@ export default function HostingPHP() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+      <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}>
         {/* Animated background gradient orbs */}
         <motion.div 
-          className="absolute w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"
+          className="absolute w-[600px] h-[600px] bg-gradient-to-br from-white to-blue-200 rounded-full blur-3xl"
           animate={{
             x: [0, 80, 0],
             y: [0, -60, 0],
@@ -188,7 +188,7 @@ export default function HostingPHP() {
         />
         
         <motion.div 
-          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl"
+          className="absolute w-[500px] h-[500px] bg-gradient-to-br from-blue-200 to-white rounded-full blur-3xl"
           animate={{
             x: [0, -80, 0],
             y: [0, 60, 0],
@@ -203,7 +203,7 @@ export default function HostingPHP() {
         />
 
         <motion.div 
-          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-primary/25 to-cyan-400/25 rounded-full blur-3xl"
+          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-white/60 to-cyan-100/60 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.4, 0.6, 0.4],
@@ -220,7 +220,7 @@ export default function HostingPHP() {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-cyan-300/40 rounded-full"
+            className="absolute w-1 h-1 bg-white/40 rounded-full"
             animate={{
               y: [0, -1000],
               x: [0, Math.random() * 200 - 100],
@@ -311,7 +311,7 @@ export default function HostingPHP() {
 
       {/* Form Steps */}
       <section className="py-8 sm:py-16 md:py-20 px-3 sm:px-6 md:px-8 bg-gradient-to-b from-gray-50 to-white min-h-[60vh]">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             {/* Step 1: Data Diri */}
             {currentStep === 1 && (
