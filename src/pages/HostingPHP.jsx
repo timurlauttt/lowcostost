@@ -261,50 +261,53 @@ export default function HostingPHP() {
       {/* Progress Bar */}
       <section className="py-4 sm:py-8 px-3 sm:px-6 md:px-8 bg-white border-b-2 border-gray-100">
         <div className="max-w-5xl mx-auto">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between relative">
             {steps.map((step, index) => (
-              <div key={step.number} className="flex items-center flex-1">
-                <div className="flex flex-col items-center flex-1">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-xs sm:text-base transition-all ${
-                      currentStep > step.number
-                        ? 'bg-green-500 text-white'
-                        : currentStep === step.number
-                        ? 'bg-primary text-white ring-4 ring-primary/30'
-                        : 'bg-gray-200 text-gray-500'
-                    }`}
-                  >
-                    {currentStep > step.number ? (
-                      <Check className="w-5 h-5 sm:w-6 sm:h-6" />
-                    ) : (
-                      step.number
-                    )}
-                  </motion.div>
-                  <span className={`text-[10px] sm:text-sm mt-1 sm:mt-2 font-medium text-center ${
-                    currentStep >= step.number ? 'text-primary' : 'text-gray-400'
-                  }`}>
-                    {step.title}
-                  </span>
-                </div>
-                {index < steps.length - 1 && (
-                  <div className="flex-1 h-1 mx-2 sm:mx-4 mb-6">
-                    <div className="h-full bg-gray-200 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full bg-primary"
-                        initial={{ width: '0%' }}
-                        animate={{
-                          width: currentStep > step.number ? '100%' : '0%'
-                        }}
-                        transition={{ duration: 0.5 }}
-                      />
-                    </div>
-                  </div>
-                )}
+              <div key={step.number} className="flex flex-col items-center relative z-10">
+                {/* Step Circle */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-xs sm:text-base transition-all ${
+                    currentStep > step.number
+                      ? 'bg-green-500 text-white'
+                      : currentStep === step.number
+                      ? 'bg-primary text-white ring-4 ring-primary/30'
+                      : 'bg-gray-200 text-gray-500'
+                  }`}
+                >
+                  {currentStep > step.number ? (
+                    <Check className="w-5 h-5 sm:w-6 sm:h-6" />
+                  ) : (
+                    step.number
+                  )}
+                </motion.div>
+                
+                {/* Step Label */}
+                <span className={`text-[10px] sm:text-xs mt-2 font-medium text-center whitespace-nowrap ${
+                  currentStep >= step.number ? 'text-primary' : 'text-gray-400'
+                }`}>
+                  {step.title}
+                </span>
               </div>
             ))}
+            
+            {/* Connecting Lines */}
+            <div className="absolute left-0 right-0 top-5 sm:top-6 flex items-center justify-between px-5 sm:px-6 -z-0">
+              {steps.slice(0, -1).map((step, index) => (
+                <div key={`line-${index}`} className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden mx-1 first:ml-0 last:mr-0">
+                  <motion.div
+                    className="h-full bg-primary"
+                    initial={{ width: '0%' }}
+                    animate={{
+                      width: currentStep > step.number ? '100%' : '0%'
+                    }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
