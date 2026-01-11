@@ -365,7 +365,7 @@ export default function HostingPHP() {
       {/* Progress Bar */}
       <section className="py-4 sm:py-8 px-3 sm:px-6 md:px-8 bg-white border-b-2 border-gray-100">
         <div className="max-w-5xl mx-auto">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between relative">
             {steps.map((step, index) => (
               <div key={step.number} className="flex items-center flex-1">
                 <div className="flex flex-col items-center flex-1">

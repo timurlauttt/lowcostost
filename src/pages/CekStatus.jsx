@@ -224,7 +224,7 @@ export default function CekStatus() {
             className="max-w-2xl mx-auto"
           >
             {/* Search Type Selector */}
-            <div className="flex justify-center gap-2 sm:gap-4 mb-4">
+            <div className="flex justify-center gap-4 mb-4">
               <button
                 type="button"
                 onClick={() => setSearchType('domain')}
@@ -233,7 +233,7 @@ export default function CekStatus() {
                   : 'bg-white/10 text-white border-2 border-white/20 hover:bg-white/20'
                   }`}
               >
-                <Globe className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                <Globe className="w-4 h-4 inline mr-2" />
                 Cari Domain
               </button>
               <button
@@ -244,7 +244,7 @@ export default function CekStatus() {
                   : 'bg-white/10 text-white border-2 border-white/20 hover:bg-white/20'
                   }`}
               >
-                <FileText className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                <FileText className="w-4 h-4 inline mr-2" />
                 Cari Nomor Resi
               </button>
             </div>
