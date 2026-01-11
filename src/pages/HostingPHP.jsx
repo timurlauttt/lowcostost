@@ -276,7 +276,7 @@ export default function HostingPHP() {
       {/* Hero Section */}
       <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}>
         {/* Animated background gradient orbs */}
-        <motion.div 
+        <motion.div
           className="absolute w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-2xl"
           animate={{
             x: [0, 80, 0],
@@ -291,7 +291,7 @@ export default function HostingPHP() {
           style={{ top: '-15%', left: '-15%', willChange: 'transform' }}
         />
 
-        <motion.div 
+        <motion.div
           className="absolute w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-2xl"
           animate={{
             x: [0, -80, 0],
@@ -306,7 +306,7 @@ export default function HostingPHP() {
           style={{ bottom: '-15%', right: '-15%', willChange: 'transform' }}
         />
 
-        <motion.div 
+        <motion.div
           className="absolute w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-2xl"
           animate={{
             scale: [1, 1.3, 1],
@@ -940,15 +940,15 @@ export default function HostingPHP() {
                   <div className="space-y-2 text-xs sm:text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Bank</span>
-                      <span className="font-semibold text-gray-900">BCA</span>
+                      <span className="font-semibold text-gray-900">Krom Bank</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">No. Rekening</span>
-                      <span className="font-semibold text-gray-900">1234567890</span>
+                      <span className="font-semibold text-gray-900">770065003022</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Atas Nama</span>
-                      <span className="font-semibold text-gray-900">LowCostHost</span>
+                      <span className="font-semibold text-gray-900">Jamaludin Abdul Karim</span>
                     </div>
                   </div>
                 </div>
