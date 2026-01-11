@@ -32,17 +32,17 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-sm shadow-lg shadow-blue-400/20" style={{ backgroundColor: '#38BDF8' }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm shadow-lg shadow-blue-400/20" style={{ backgroundColor: '#38BDF8' }}>
       <div className="flex items-center justify-between px-12 sm:px-16 md:px-24 lg:px-32 py-3 sm:py-4">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
           <Link to="/">
-            <img 
-              src="/LowCostHost-logo.png" 
-              alt="Low-Cost-Host" 
-              className="h-6 sm:h-10 md:h-12 brightness-0 invert" 
+            <img
+              src="/LowCost.png"
+              alt="LowCostHost"
+              className="h-10 sm:h-12 w-auto object-contain brightness-0 invert"
             />
           </Link>
         </motion.div>

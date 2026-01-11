@@ -1,9 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Upload, FileText, Check, ChevronRight, ChevronLeft, Server, Globe } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
+import { orderService } from '../services/orderService';
 
 export default function HostingPHP() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -18,11 +19,34 @@ export default function HostingPHP() {
     projectLink: '',
     database: null,
     notes: '',
-    payment: null
+    payment: null,
+    hostingPackageId: '', // ID Paket Hosting terpilih
+    hostingId: '' // ID Hosting terpilih (jika manual)
   });
+
+  const [packages, setPackages] = useState([]);
+  const [hostings, setHostings] = useState([]);
 
   const [resiNumber, setResiNumber] = useState('');
   const [showResi, setShowResi] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Fetch Master Data
+  useEffect(() => {
+    const fetchMasterData = async () => {
+      try {
+        const [pkgs, hstngs] = await Promise.all([
+          orderService.getPackages(),
+          orderService.getHostings()
+        ]);
+        setPackages(pkgs);
+        setHostings(hstngs);
+      } catch (error) {
+        console.error('Failed to fetch master data', error);
+      }
+    };
+    fetchMasterData();
+  }, []);
 
   const steps = [
     { number: 1, title: 'Data Diri' },
@@ -46,48 +70,53 @@ export default function HostingPHP() {
   ];
 
   // Pricing berdasarkan paket dan durasi
+  // Pricing logic
+  // Pricing logic
   const getPricing = () => {
-    const duration = parseInt(formData.duration);
-    const isHostingOnly = formData.packageType === 'hosting-only';
-    
-    if (isHostingOnly) {
-      // Hosting Only - Small package
-      const prices = {
-        1: 50000,
-        3: 140000, // Hemat 10k
-        6: 250000, // Hemat 50k
-        12: 500000 // Free domain .my.id
-      };
-      return prices[duration] || 0;
+    let totalPrice = 0;
+    let selectedPkg = null;
+
+    // 1. Calculate Hosting Price
+    if (formData.hostingPackageId) {
+      selectedPkg = packages.find(p => String(p.id) === String(formData.hostingPackageId));
+      if (selectedPkg) {
+        totalPrice += parseFloat(selectedPkg.harga);
+      }
+    } else if (formData.hostingId) {
+      const selectedHosting = hostings.find(h => String(h.id) === String(formData.hostingId));
+      if (selectedHosting) {
+        totalPrice += parseFloat(selectedHosting.harga_bulanan) * parseInt(formData.duration || 1);
+      }
     } else {
-      // Hosting + Domain
-      if (formData.domainType === 'my.id') {
-        const prices = {
-          1: 80000,
-          3: 220000,
-          6: 400000,
-          12: 500000
-        };
-        return prices[duration] || 0;
-      } else if (formData.domainType === 'com') {
-        const prices = {
-          1: 275000,
-          3: 800000,
-          6: 1500000,
-          12: 2900000
-        };
-        return prices[duration] || 0;
-      } else if (formData.domainType === 'id') {
-        const prices = {
-          1: 300000,
-          3: 875000,
-          6: 1650000,
-          12: 3200000
-        };
-        return prices[duration] || 0;
+      // Fallback calculation for completely manual flow
+      return 0;
+    }
+
+    // 2. Calculate Domain Price
+    // Jika paket bundle domain (bukan hosting-only) dan bukan subdomain
+    if (formData.packageType !== 'hosting-only' && formData.domainType !== 'subdomain') {
+      const domainPrices = {
+        'com': 225000,
+        'id': 250000,
+        'my.id': 30000,
+        'sch.id': 75000
+      };
+
+      let isFree = false;
+      // Cek jika paket yang dipilih memiliki free domain yang sesuai
+      if (selectedPkg && selectedPkg.free_domain && selectedPkg.domain_tld) {
+        const cleanTld = selectedPkg.domain_tld.replace(/^\./, ''); // misal ".my.id" jadi "my.id"
+        if (formData.domainType === cleanTld) {
+          isFree = true;
+        }
+      }
+
+      if (!isFree) {
+        totalPrice += (domainPrices[formData.domainType] || 0);
       }
     }
-    return 0;
+
+    return totalPrice;
   };
 
   const getDomainOptions = () => {
@@ -108,7 +137,7 @@ export default function HostingPHP() {
     const { name, value } = e.target;
     setFormData(prev => {
       const newData = { ...prev, [name]: value };
-      
+
       // Reset domain type jika package type berubah
       if (name === 'packageType') {
         if (value === 'hosting-only') {
@@ -117,7 +146,28 @@ export default function HostingPHP() {
           newData.domainType = 'my.id';
         }
       }
-      
+
+      // Reset package jika hosting manual berubah (karena filter berubah)
+      if (name === 'hostingId') {
+        newData.hostingPackageId = '';
+      }
+
+      // Logic jika paket dipilih
+      if (name === 'hostingPackageId' && value !== '') {
+        const selectedPkg = packages.find(p => String(p.id) === String(value));
+        if (selectedPkg) {
+          // Auto set durasi dari paket
+          if (selectedPkg.duration_value) {
+            newData.duration = String(selectedPkg.duration_value);
+          }
+
+          // Auto set tipe paket jika ada free domain
+          if (selectedPkg.free_domain) {
+            newData.packageType = 'hosting-domain';
+          }
+        }
+      }
+
       return newData;
     });
   };
@@ -130,11 +180,7 @@ export default function HostingPHP() {
     });
   };
 
-  const generateResiNumber = () => {
-    const timestamp = Date.now();
-    const random = Math.floor(Math.random() * 1000);
-    return `LCH-PHP-${timestamp}-${random}`;
-  };
+
 
   const nextStep = () => {
     if (currentStep < 5) {
@@ -150,11 +196,69 @@ export default function HostingPHP() {
     }
   };
 
-  const handleSubmit = () => {
-    const newResi = generateResiNumber();
-    setResiNumber(newResi);
-    setShowResi(true);
-    nextStep();
+  const handleSubmit = async () => {
+    setIsLoading(true);
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('nama_lengkap', formData.name);
+      formDataToSend.append('nomor_whatsapp', formData.phone);
+      formDataToSend.append('tipe_paket', formData.packageType.replace('-', '_'));
+      formDataToSend.append('durasi_bulan', formData.duration);
+
+      const domainMap = {
+        'subdomain': 'subdomain_gratis',
+        'my.id': 'domain_my_id',
+        'com': 'domain_com',
+        'id': 'domain_id',
+        'sch.id': 'domain_sch_id'
+      };
+      formDataToSend.append('pilihan_domain', domainMap[formData.domainType] || formData.domainType);
+
+      let finalDomainName = formData.domainName;
+      if (formData.domainType !== 'subdomain' && !finalDomainName.endsWith('.' + formData.domainType)) {
+        finalDomainName += '.' + formData.domainType;
+      }
+      formDataToSend.append('nama_domain', finalDomainName);
+
+      if (formData.hostingPackageId) {
+        formDataToSend.append('hosting_package_id', formData.hostingPackageId);
+        // User requested: "jika paket dipilih otomatis data hosting tidak masuk ke req body"
+      } else if (formData.hostingId) {
+        formDataToSend.append('hosting_id', formData.hostingId);
+      }
+
+      formDataToSend.append('framework', formData.framework);
+      formDataToSend.append('link_gdrive_project', formData.projectLink);
+      formDataToSend.append('total_harga', getPricing());
+
+      if (formData.database) {
+        formDataToSend.append('file_database', formData.database);
+      }
+
+      if (formData.notes) {
+        formDataToSend.append('catatan_tambahan', formData.notes);
+      }
+
+      if (formData.payment) {
+        formDataToSend.append('bukti_pembayaran', formData.payment);
+      }
+
+      const result = await orderService.createOrder(formDataToSend);
+
+      if (result.success) {
+        setResiNumber(result.data.resi);
+        setShowResi(true);
+        nextStep();
+      } else {
+        alert(result.message || 'Terjadi kesalahan saat membuat pesanan');
+      }
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      alert(error.message || 'Terjadi kesalahan koneksi. Silakan coba lagi.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const formatPrice = (price) => {
@@ -172,7 +276,7 @@ export default function HostingPHP() {
       {/* Hero Section */}
       <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}>
         {/* Animated background gradient orbs */}
-        <motion.div 
+        <motion.div
           className="absolute w-[600px] h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-3xl"
           animate={{
             x: [0, 80, 0],
@@ -186,8 +290,8 @@ export default function HostingPHP() {
           }}
           style={{ top: '-15%', left: '-15%' }}
         />
-        
-        <motion.div 
+
+        <motion.div
           className="absolute w-[500px] h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-3xl"
           animate={{
             x: [0, -80, 0],
@@ -202,7 +306,7 @@ export default function HostingPHP() {
           style={{ bottom: '-15%', right: '-15%' }}
         />
 
-        <motion.div 
+        <motion.div
           className="absolute w-[400px] h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
@@ -238,7 +342,7 @@ export default function HostingPHP() {
             }}
           />
         ))}
-        
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -269,13 +373,12 @@ export default function HostingPHP() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: index * 0.1 }}
-                    className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-xs sm:text-base transition-all ${
-                      currentStep > step.number
-                        ? 'bg-green-500 text-white'
-                        : currentStep === step.number
+                    className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-xs sm:text-base transition-all ${currentStep > step.number
+                      ? 'bg-green-500 text-white'
+                      : currentStep === step.number
                         ? 'bg-primary text-white ring-4 ring-primary/30'
                         : 'bg-gray-200 text-gray-500'
-                    }`}
+                      }`}
                   >
                     {currentStep > step.number ? (
                       <Check className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -283,9 +386,8 @@ export default function HostingPHP() {
                       step.number
                     )}
                   </motion.div>
-                  <span className={`text-[10px] sm:text-sm mt-1 sm:mt-2 font-medium text-center ${
-                    currentStep >= step.number ? 'text-primary' : 'text-gray-400'
-                  }`}>
+                  <span className={`text-[10px] sm:text-sm mt-1 sm:mt-2 font-medium text-center ${currentStep >= step.number ? 'text-primary' : 'text-gray-400'
+                    }`}>
                     {step.title}
                   </span>
                 </div>
@@ -323,7 +425,7 @@ export default function HostingPHP() {
                 className="bg-white rounded-lg border-2 border-gray-200 p-4 sm:p-8 space-y-4 sm:space-y-6"
               >
                 <h2 className="text-xl sm:text-2xl font-black text-primary-dark mb-4 sm:mb-6">Data Diri & Framework</h2>
-                
+
                 <div>
                   <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
                     Nama Lengkap *
@@ -362,11 +464,10 @@ export default function HostingPHP() {
                     {frameworks.map((fw) => (
                       <label
                         key={fw.value}
-                        className={`p-3 sm:p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                          formData.framework === fw.value
-                            ? 'border-primary bg-primary/5'
-                            : 'border-gray-200 hover:border-primary/30'
-                        }`}
+                        className={`p-3 sm:p-4 rounded-lg border-2 cursor-pointer transition-all ${formData.framework === fw.value
+                          ? 'border-primary bg-primary/5'
+                          : 'border-gray-200 hover:border-primary/30'
+                          }`}
                       >
                         <input
                           type="radio"
@@ -412,8 +513,65 @@ export default function HostingPHP() {
                 className="bg-white rounded-lg border-2 border-gray-200 p-4 sm:p-8 space-y-4 sm:space-y-6"
               >
                 <h2 className="text-xl sm:text-2xl font-black text-primary-dark mb-4 sm:mb-6">Pilih Paket & Domain</h2>
-                
-                {/* Tipe Paket */}
+
+                {/* 1. Pilih Hosting (Manual / Filter) */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
+                    Pilih Tipe Hosting
+                  </label>
+                  <select
+                    name="hostingId"
+                    value={formData.hostingId}
+                    onChange={handleChange}
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors bg-white"
+                  >
+                    <option value="">Pilih Hosting (Manual)</option>
+                    {hostings.map(h => (
+                      <option key={h.id} value={h.id}>
+                        {h.nama} - {h.harga_bulanan_formatted}/bln
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
+                    Pilih hosting terlebih dahulu sebelum memilih paket
+                  </p>
+                </div>
+
+                {/* 2. Pilih Paket Hosting (Filtered by Hosting) */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
+                    Pilih Paket (Opsional)
+                  </label>
+                  <select
+                    name="hostingPackageId"
+                    value={formData.hostingPackageId}
+                    onChange={handleChange}
+                    disabled={!formData.hostingId}
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  >
+                    <option value="">
+                      {!formData.hostingId ? 'Pilih Tipe Hosting Terlebih Dahulu' : 'Pilih Paket (Jika ada)'}
+                    </option>
+                    {packages
+                      .filter(pkg => {
+                        if (!formData.hostingId) return true;
+                        // Try to match hosting_id or nested hosting.id
+                        const pkgHostingId = pkg.hosting_id || (pkg.hosting ? pkg.hosting.id : null);
+                        return String(pkgHostingId) == String(formData.hostingId);
+                      })
+                      .map(pkg => (
+                        <option key={pkg.id} value={pkg.id}>
+                          {pkg.nama_paket} ({pkg.duration_formatted || pkg.duration_value + ' Bulan'})
+                          {pkg.free_domain ? ` + Free Domain ${pkg.domain_tld}` : ''} - {pkg.harga_formatted}
+                        </option>
+                      ))}
+                  </select>
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
+                    Paket yang tersedia untuk hosting yang dipilih
+                  </p>
+                </div>
+
+                {/* Tipe Paket (Always visible) */}
                 <div>
                   <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">
                     Tipe Paket *
@@ -422,11 +580,10 @@ export default function HostingPHP() {
                     {packageTypes.map((pkg) => (
                       <label
                         key={pkg.value}
-                        className={`p-4 sm:p-6 rounded-lg border-2 cursor-pointer transition-all ${
-                          formData.packageType === pkg.value
-                            ? 'border-primary bg-primary/5 ring-2 ring-primary/30'
-                            : 'border-gray-200 hover:border-primary/30'
-                        }`}
+                        className={`p-4 sm:p-6 rounded-lg border-2 cursor-pointer transition-all ${formData.packageType === pkg.value
+                          ? 'border-primary bg-primary/5 ring-2 ring-primary/30'
+                          : 'border-gray-200 hover:border-primary/30'
+                          }`}
                       >
                         <input
                           type="radio"
@@ -446,8 +603,8 @@ export default function HostingPHP() {
                             <div>
                               <p className="text-sm sm:text-base font-bold text-gray-900">{pkg.label}</p>
                               <p className="text-[10px] sm:text-xs text-gray-600 mt-1">
-                                {pkg.value === 'hosting-only' 
-                                  ? 'Gratis subdomain' 
+                                {pkg.value === 'hosting-only'
+                                  ? 'Gratis subdomain'
                                   : 'Pilih domain .my.id, .com, atau .id'}
                               </p>
                             </div>
@@ -463,9 +620,16 @@ export default function HostingPHP() {
 
                 {/* Durasi */}
                 <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3">
-                    Durasi Hosting *
-                  </label>
+                  <div className="flex justify-between items-center mb-2 sm:mb-3">
+                    <label className="block text-xs sm:text-sm font-semibold text-gray-700">
+                      Durasi Hosting *
+                    </label>
+                    {formData.hostingPackageId && (
+                      <span className="text-[10px] sm:text-xs text-primary bg-primary/10 px-2 py-1 rounded">
+                        Mengikuti Paket
+                      </span>
+                    )}
+                  </div>
                   <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {[
                       { value: '1', label: '1 Bulan' },
@@ -475,11 +639,13 @@ export default function HostingPHP() {
                     ].map((dur) => (
                       <label
                         key={dur.value}
-                        className={`p-3 sm:p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                          formData.duration === dur.value
-                            ? 'border-primary bg-primary/5'
-                            : 'border-gray-200 hover:border-primary/30'
-                        }`}
+                        className={`p-3 sm:p-4 rounded-lg border-2 transition-all ${formData.duration === dur.value
+                          ? 'border-primary bg-primary/5'
+                          : 'border-gray-200'
+                          } ${formData.hostingPackageId
+                            ? 'cursor-not-allowed opacity-60'
+                            : 'cursor-pointer hover:border-primary/30'
+                          }`}
                       >
                         <input
                           type="radio"
@@ -487,6 +653,7 @@ export default function HostingPHP() {
                           value={dur.value}
                           checked={formData.duration === dur.value}
                           onChange={handleChange}
+                          disabled={!!formData.hostingPackageId}
                           className="sr-only"
                         />
                         <div className="flex items-center justify-between">
@@ -500,26 +667,7 @@ export default function HostingPHP() {
                   </div>
                 </div>
 
-                {/* Pricing Display */}
-                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 sm:p-6 border-2 border-primary/20">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Harga</p>
-                      <p className="text-xl sm:text-3xl font-black text-primary">
-                        {formatPrice(getPricing())}
-                      </p>
-                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
-                        Untuk {formData.duration} bulan
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs sm:text-sm text-gray-600">Paket</p>
-                      <p className="text-sm sm:text-base font-bold text-gray-900">
-                        {formData.packageType === 'hosting-only' ? 'Hosting Only' : 'Hosting + Domain'}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+
 
                 {/* Domain Options */}
                 <div>
@@ -527,31 +675,19 @@ export default function HostingPHP() {
                     Pilihan Domain *
                   </label>
                   <div className="space-y-2 sm:space-y-3">
-                    {getDomainOptions().map((domain) => (
-                      <label
-                        key={domain.value}
-                        className={`p-3 sm:p-4 rounded-lg border-2 cursor-pointer transition-all block ${
-                          formData.domainType === domain.value
-                            ? 'border-primary bg-primary/5'
-                            : 'border-gray-200 hover:border-primary/30'
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="domainType"
-                          value={domain.value}
-                          checked={formData.domainType === domain.value}
-                          onChange={handleChange}
-                          className="sr-only"
-                        />
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs sm:text-sm font-medium text-gray-700">{domain.label}</span>
-                          {formData.domainType === domain.value && (
-                            <Check className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                          )}
-                        </div>
-                      </label>
-                    ))}
+                    <select
+                      name="domainType"
+                      value={formData.domainType}
+                      onChange={handleChange}
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors bg-white"
+                    >
+                      <option value="">Pilih Domain (opsional)</option>
+                      {getDomainOptions().map((domain) => (
+                        <option key={domain.value} value={domain.value}>
+                          {domain.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
@@ -568,17 +704,42 @@ export default function HostingPHP() {
                       onChange={handleChange}
                       required
                       className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg border-2 border-gray-200 focus:border-primary focus:outline-none transition-colors"
-                      placeholder={
-                        formData.domainType === 'subdomain' 
-                          ? 'namaanda' 
-                          : `namaanda.${formData.domainType}`
-                      }
+                      placeholder="namaanda"
                     />
-                    {formData.domainType === 'subdomain' && (
-                      <span className="flex items-center px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm bg-gray-100 text-gray-600 rounded-lg border-2 border-gray-200 whitespace-nowrap">
-                        domain
-                      </span>
-                    )}
+                    <span className="flex items-center px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm bg-gray-100 text-gray-600 rounded-lg border-2 border-gray-200 whitespace-nowrap">
+                      {formData.domainType === 'subdomain' ? '.domain' : `.${formData.domainType}`}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Pricing Display Moved Here */}
+                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 sm:p-6 border-2 border-primary/20 mt-4 sm:mt-6">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Harga</p>
+                      <p className="text-xl sm:text-3xl font-black text-primary">
+                        {formatPrice(getPricing())}
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
+                        {formData.hostingPackageId ? (
+                          <>
+                            Paket {formData.duration} bulan
+                            {/* Tampilkan detail bundle */}
+                            {(packages.find(p => String(p.id) === String(formData.hostingPackageId))?.free_domain)
+                              ? ' (Termasuk domain)'
+                              : ''}
+                          </>
+                        ) : (
+                          `Hosting ${formData.duration} bulan + Domain`
+                        )}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs sm:text-sm text-gray-600">Paket</p>
+                      <p className="text-sm sm:text-base font-bold text-gray-900">
+                        {formData.packageType === 'hosting-only' ? 'Hosting Only' : 'Hosting + Domain'}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
@@ -616,7 +777,7 @@ export default function HostingPHP() {
                 className="bg-white rounded-lg border-2 border-gray-200 p-4 sm:p-8 space-y-4 sm:space-y-6"
               >
                 <h2 className="text-xl sm:text-2xl font-black text-primary-dark mb-4 sm:mb-6">Upload File Project</h2>
-                
+
                 {/* Link Google Drive */}
                 <div>
                   <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5 sm:mb-2">
@@ -717,39 +878,39 @@ export default function HostingPHP() {
                 className="bg-white rounded-lg border-2 border-gray-200 p-4 sm:p-8 space-y-4 sm:space-y-6"
               >
                 <h2 className="text-xl sm:text-2xl font-black text-primary-dark mb-4 sm:mb-6">Konfirmasi & Pembayaran</h2>
-                
+
                 {/* Rangkuman Pesanan */}
                 <div className="bg-gray-50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
                   <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Rangkuman Pesanan</h3>
-                  
+
                   <div className="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                     <div className="text-gray-600">Nama</div>
                     <div className="font-semibold text-gray-900">{formData.name}</div>
-                    
+
                     <div className="text-gray-600">WhatsApp</div>
                     <div className="font-semibold text-gray-900">{formData.phone}</div>
-                    
+
                     <div className="text-gray-600">Framework</div>
                     <div className="font-semibold text-gray-900">
                       {frameworks.find(f => f.value === formData.framework)?.label}
                     </div>
-                    
+
                     <div className="text-gray-600">Tipe Paket</div>
                     <div className="font-semibold text-gray-900">
                       {formData.packageType === 'hosting-only' ? 'Hosting Only' : 'Hosting + Domain'}
                     </div>
-                    
+
                     <div className="text-gray-600">Durasi</div>
                     <div className="font-semibold text-gray-900">{formData.duration} Bulan</div>
-                    
+
                     <div className="text-gray-600">Domain</div>
                     <div className="font-semibold text-gray-900">
                       {formData.domainName}
-                      {formData.domainType === 'subdomain' 
-                        ? '.lowcosthost.id' 
+                      {formData.domainType === 'subdomain'
+                        ? '.lowcosthost.id'
                         : `.${formData.domainType}`}
                     </div>
-                    
+
                     <div className="text-gray-600">Database</div>
                     <div className="font-semibold text-gray-900 truncate">
                       {formData.database?.name || '-'}
@@ -767,7 +928,7 @@ export default function HostingPHP() {
                   )}
 
                   <hr className="my-4" />
-                  
+
                   <div className="flex justify-between items-center pt-2">
                     <span className="text-base sm:text-lg font-bold text-gray-900">Total Pembayaran</span>
                     <span className="text-xl sm:text-2xl font-black text-primary">
@@ -836,13 +997,26 @@ export default function HostingPHP() {
                   </motion.button>
                   <motion.button
                     onClick={handleSubmit}
-                    disabled={!formData.payment}
+                    disabled={!formData.payment || isLoading}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-1 sm:gap-2"
                   >
-                    <Check className="w-4 h-4 sm:w-5 sm:h-5" />
-                    Kirim Pesanan
+                    {isLoading ? (
+                      <>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full"
+                        />
+                        Memproses...
+                      </>
+                    ) : (
+                      <>
+                        <Check className="w-4 h-4 sm:w-5 sm:h-5" />
+                        Kirim Pesanan
+                      </>
+                    )}
                   </motion.button>
                 </div>
               </motion.div>
@@ -860,7 +1034,7 @@ export default function HostingPHP() {
                   <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                     <Check className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                   </div>
-                  
+
                   <h2 className="text-xl sm:text-3xl font-black text-primary-dark mb-3 sm:mb-4">
                     Pendaftaran Berhasil!
                   </h2>
@@ -896,7 +1070,7 @@ export default function HostingPHP() {
                   <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-2 border-gray-100">
                     Nota Pembelian
                   </h3>
-                  
+
                   <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Tanggal</span>
@@ -912,9 +1086,9 @@ export default function HostingPHP() {
                       <span className="text-gray-600">No. Resi</span>
                       <span className="font-mono font-semibold text-gray-900">{resiNumber}</span>
                     </div>
-                    
+
                     <hr className="my-3" />
-                    
+
                     <div className="flex justify-between">
                       <span className="text-gray-600">Nama</span>
                       <span className="font-semibold text-gray-900">{formData.name}</span>
@@ -923,9 +1097,9 @@ export default function HostingPHP() {
                       <span className="text-gray-600">WhatsApp</span>
                       <span className="font-semibold text-gray-900">{formData.phone}</span>
                     </div>
-                    
+
                     <hr className="my-3" />
-                    
+
                     <div className="flex justify-between">
                       <span className="text-gray-600">Paket</span>
                       <span className="font-semibold text-gray-900">
@@ -946,14 +1120,14 @@ export default function HostingPHP() {
                       <span className="text-gray-600">Domain</span>
                       <span className="font-semibold text-gray-900">
                         {formData.domainName}
-                        {formData.domainType === 'subdomain' 
-                          ? '.lowcosthost.id' 
+                        {formData.domainType === 'subdomain'
+                          ? '.lowcosthost.id'
                           : `.${formData.domainType}`}
                       </span>
                     </div>
-                    
+
                     <hr className="my-3" />
-                    
+
                     <div className="flex justify-between items-center pt-2">
                       <span className="text-base sm:text-lg font-bold text-gray-900">Total</span>
                       <span className="text-lg sm:text-2xl font-black text-primary">
@@ -1002,7 +1176,7 @@ export default function HostingPHP() {
                     className="flex-1 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2"
                   >
                     <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                     </svg>
                     Hubungi via WhatsApp
                   </motion.a>
@@ -1019,10 +1193,10 @@ export default function HostingPHP() {
             )}
           </AnimatePresence>
         </div>
-      </section>
+      </section >
 
       <Footer />
       <ScrollToTop />
-    </div>
+    </div >
   );
 }

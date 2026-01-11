@@ -14,9 +14,8 @@ export default function PricingCards() {
         'Max File 1GB',
         'Free Domain .my.id',
         'SSL Gratis',
-        'Email Support 24/7',
-        'Control Panel',
-        'Free Migration'
+        'Setup Server & Domain',
+        'Terima Beres/Anti Ribet'
       ]
     },
     {
@@ -30,8 +29,8 @@ export default function PricingCards() {
         'Max File 512MB',
         'Free Subdomain',
         'SSL Gratis',
-        'Email Support',
-        'Control Panel',
+        'Setup Server Instan',
+        'Terima Beres/Anti Ribet',
       ]
     },
     {
@@ -44,8 +43,8 @@ export default function PricingCards() {
         'Max File 2GB',
         'Free Domain .com',
         'SSL Gratis',
-        'Priority Support 24/7',
-        'Free Migration',
+        'Setup Server & Domain',
+        'Terima Beres/Anti Ribet',
       ]
     }
   ];
@@ -64,7 +63,7 @@ export default function PricingCards() {
             Paket Hosting Terbaik
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
-            Pilih paket sesuai kebutuhan Anda, semua dengan harga terjangkau
+            Pilih paket sesuai kebutuhan Anda. Nggak perlu pusing atur server/panel, kami yang urus teknisnya. Anda terima beres!
           </p>
         </motion.div>
 
@@ -78,11 +77,10 @@ export default function PricingCards() {
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
               whileHover={{ y: -10 }}
-              className={`relative p-8 rounded-lg border-2 transition-all duration-300 ${
-                pkg.popular
+              className={`relative p-8 rounded-lg border-2 transition-all duration-300 ${pkg.popular
                   ? 'bg-gradient-to-br from-primary via-primary-dark to-primary border-primary shadow-2xl shadow-primary/30 md:scale-105'
                   : 'bg-white border-gray-200 hover:border-primary/50 hover:shadow-xl'
-              }`}
+                }`}
             >
               {/* Popular Badge */}
               {pkg.popular && (
@@ -122,9 +120,8 @@ export default function PricingCards() {
               <ul className="space-y-3 mb-8">
                 {pkg.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <div className={`flex-shrink-0 w-5 h-5 rounded-lg flex items-center justify-center ${
-                      pkg.popular ? 'bg-white' : 'bg-primary'
-                    }`}>
+                    <div className={`flex-shrink-0 w-5 h-5 rounded-lg flex items-center justify-center ${pkg.popular ? 'bg-white' : 'bg-primary'
+                      }`}>
                       <Check className={`w-3 h-3 ${pkg.popular ? 'text-white' : 'text-primary'}`} />
                     </div>
                     <span className={`text-sm ${pkg.popular ? 'text-white/90' : 'text-gray-700'}`}>
@@ -135,20 +132,15 @@ export default function PricingCards() {
               </ul>
 
               {/* CTA Button */}
-              <motion.a
-                href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20order%20paket%20hosting"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.95 }}
-                className={`block w-full py-3 px-6 rounded-lg font-bold text-center transition-all duration-300 ${
-                  pkg.popular
+              <Link
+                to="/hosting"
+                className={`block w-full py-3 px-6 rounded-lg font-bold text-center transition-all duration-300 ${pkg.popular
                     ? 'bg-white text-primary-dark hover:shadow-xl hover:shadow-white/20'
                     : 'bg-primary text-white hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30'
-                }`}
+                  }`}
               >
                 Pilih Paket
-              </motion.a>
+              </Link>
             </motion.div>
           ))}
         </div>

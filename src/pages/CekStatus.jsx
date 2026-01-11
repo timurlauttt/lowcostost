@@ -4,6 +4,7 @@ import { Search, CheckCircle, XCircle, Clock, Server, Globe, Calendar, AlertCirc
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
+import { orderService } from '../services/orderService';
 
 export default function CekStatus() {
   const [searchInput, setSearchInput] = useState('');
@@ -11,124 +12,89 @@ export default function CekStatus() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
-  // Simulasi data hosting (dalam production, ini akan fetch dari API)
-  const hostingData = {
-    'progres.com': {
-      status: 'on progress',
-      domain: 'progres.com',
-      resi: 'LCH-PHP-1234567890-123',
-      paket: 'Medium Hosting',
-      tglOrder: '5 Januari 2026',
-      estimasiSelesai: '8 Januari 2026',
-      progress: 75,
-      ssl: 'Dalam Setup',
-      backup: 'Belum Aktif',
-      notes: 'Sedang dalam proses instalasi dan konfigurasi'
-    },
-    'contoh.com': {
-      status: 'active',
-      domain: 'contoh.com',
-      resi: 'LCH-PHP-1234567890-456',
-      paket: 'Medium Hosting',
-      tglAktif: '15 Desember 2025',
-      tglExpired: '15 Desember 2026',
-      sisaHari: 341,
-      storage: {
-        used: '512 MB',
-        total: '1 GB',
-        percentage: 50
-      },
-      bandwidth: {
-        used: '2.5 GB',
-        total: 'Unlimited',
-        percentage: 0
-      },
-      ssl: true,
-      backup: 'Aktif',
-      cpanel: 'https://cpanel.contoh.com'
-    },
-    'example.id': {
-      status: 'expired',
-      domain: 'example.id',
-      resi: 'LCH-PHP-1234567890-789',
-      paket: 'Small Hosting',
-      tglAktif: '10 Juni 2025',
-      tglExpired: '10 Desember 2025',
-      sisaHari: -29,
-      storage: {
-        used: '256 MB',
-        total: '512 MB',
-        percentage: 50
-      },
-      bandwidth: {
-        used: '1.2 GB',
-        total: 'Unlimited',
-        percentage: 0
-      },
-      ssl: false,
-      backup: 'Nonaktif',
-      cpanel: 'https://cpanel.example.id'
-    },
-    'testing.my.id': {
-      status: 'warning',
-      domain: 'testing.my.id',
-      resi: 'LCH-PHP-1234567890-012',
-      paket: 'Large Hosting + Domain',
-      tglAktif: '20 November 2025',
-      tglExpired: '20 Januari 2026',
-      sisaHari: 12,
-      storage: {
-        used: '1.8 GB',
-        total: '2 GB',
-        percentage: 90
-      },
-      bandwidth: {
-        used: '8.5 GB',
-        total: 'Unlimited',
-        percentage: 0
-      },
-      ssl: true,
-      backup: 'Aktif',
-      cpanel: 'https://cpanel.testing.my.id'
+  // Helper untuk mapping status API ke status UI
+  const mapApiStatusToUi = (apiStatus) => {
+    switch (apiStatus) {
+      case 'pending':
+      case 'paid':
+      case 'processing':
+        return 'on progress';
+      case 'completed':
+        return 'active';
+      case 'cancelled':
+        return 'expired';
+      default:
+        return 'unknown';
     }
   };
 
-  const handleCheck = (e) => {
+  const handleCheck = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setResult(null);
 
-    // Simulasi loading
-    setTimeout(() => {
+    try {
       const cleanInput = searchInput.toLowerCase().trim();
-      let data = null;
-
-      if (searchType === 'domain') {
-        // Cari berdasarkan domain
-        data = hostingData[cleanInput];
-      } else {
-        // Cari berdasarkan nomor resi
-        data = Object.values(hostingData).find(item => 
-          item.resi && item.resi.toLowerCase() === cleanInput.toLowerCase()
-        );
-      }
+      const data = await orderService.checkStatus(cleanInput);
 
       if (data) {
-        setResult(data);
+        const uiStatus = mapApiStatusToUi(data.status);
+
+        const mappedResult = {
+          status: uiStatus,
+          apiStatus: data.status,
+          statusLabel: data.status_label,
+          domain: data.nama_domain,
+          resi: data.resi,
+          paket: data.paket,
+          tglOrder: new Date(data.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+          // Data default untuk field yang mungkin belum ada di API
+          estimasiSelesai: '1-2 Hari Kerja',
+          progress: data.status === 'processing' ? 50 : 25,
+          ssl: 'Dalam Proses',
+          backup: 'Belum Aktif',
+          notes: data.status_label || 'Sedang diproses',
+
+          // Data Mockup untuk status active (karena API belum return detail technical)
+          tglAktif: data.created_at ? new Date(data.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-',
+          tglExpired: '-',
+          sisaHari: 30,
+          storage: { used: '0 MB', total: '1 GB', percentage: 0 },
+          bandwidth: { used: '0 GB', total: 'Unlimited', percentage: 0 },
+          cpanel: '#'
+        };
+
+        setResult(mappedResult);
       } else {
-        setResult({ 
-          status: 'notfound', 
+        setResult({
+          status: 'notfound',
           searchValue: cleanInput,
-          searchType: searchType 
+          searchType: searchType
         });
       }
+    } catch (error) {
+      console.error('Error checking status:', error);
+      alert('Gagal terhubung ke server. Silakan coba lagi.');
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
-  const getStatusBadge = (status, sisaHari) => {
+
+  const getStatusBadge = (status, sisaHari, apiStatus, statusLabel) => {
     if (status === 'on progress') {
+      // Prioritize statusLabel from backend, otherwise map apiStatus
+      let text = 'Sedang Diproses';
+      if (statusLabel) {
+        text = statusLabel;
+      } else if (apiStatus === 'pending') {
+        text = 'Menunggu Pembayaran';
+      } else if (apiStatus === 'paid') {
+        text = 'Sudah Dibayar';
+      }
+
       return {
-        text: 'Sedang Diproses',
+        text: text,
         color: 'bg-blue-500',
         icon: Clock
       };
@@ -262,11 +228,10 @@ export default function CekStatus() {
               <button
                 type="button"
                 onClick={() => setSearchType('domain')}
-                className={`px-3 sm:px-6 py-2 rounded-lg font-bold transition-all text-sm sm:text-base ${
-                  searchType === 'domain'
-                    ? 'bg-white text-primary-dark'
-                    : 'bg-white/10 text-white border-2 border-white/20 hover:bg-white/20'
-                }`}
+                className={`px-3 sm:px-6 py-2 rounded-lg font-bold transition-all text-sm sm:text-base ${searchType === 'domain'
+                  ? 'bg-white text-primary-dark'
+                  : 'bg-white/10 text-white border-2 border-white/20 hover:bg-white/20'
+                  }`}
               >
                 <Globe className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                 Cari Domain
@@ -274,11 +239,10 @@ export default function CekStatus() {
               <button
                 type="button"
                 onClick={() => setSearchType('resi')}
-                className={`px-3 sm:px-6 py-2 rounded-lg font-bold transition-all text-sm sm:text-base ${
-                  searchType === 'resi'
-                    ? 'bg-white text-primary-dark'
-                    : 'bg-white/10 text-white border-2 border-white/20 hover:bg-white/20'
-                }`}
+                className={`px-3 sm:px-6 py-2 rounded-lg font-bold transition-all text-sm sm:text-base ${searchType === 'resi'
+                  ? 'bg-white text-primary-dark'
+                  : 'bg-white/10 text-white border-2 border-white/20 hover:bg-white/20'
+                  }`}
               >
                 <FileText className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
                 Cari Nomor Resi
@@ -301,7 +265,7 @@ export default function CekStatus() {
                       ? 'Masukkan domain (contoh: namadomain.com)'
                       : 'Masukkan nomor resi (contoh: LCH-PHP-1234567890-123)'
                   }
-                  className="w-full pl-12 pr-4 py-4 rounded-lg border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:outline-none focus:border-white/40 transition-all"
+                  className="w-full pl-12 pr-4 py-4 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all shadow-lg"
                   required
                 />
               </div>
@@ -310,14 +274,14 @@ export default function CekStatus() {
                 disabled={loading}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-white text-primary-dark font-bold rounded-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-blue-900 text-white font-bold rounded-lg hover:bg-blue-950 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 shadow-lg"
               >
                 {loading ? (
                   <>
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      className="w-5 h-5 border-2 border-primary-dark border-t-transparent rounded-full"
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                     />
                     Checking...
                   </>
@@ -377,7 +341,7 @@ export default function CekStatus() {
                   className="mb-8"
                 >
                   {(() => {
-                    const statusBadge = getStatusBadge(result.status, result.sisaHari);
+                    const statusBadge = getStatusBadge(result.status, result.sisaHari, result.apiStatus, result.statusLabel);
                     const StatusIcon = statusBadge.icon;
                     return (
                       <div className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg">
@@ -450,13 +414,7 @@ export default function CekStatus() {
                           />
                         </div>
                       </div>
-                      {result.notes && (
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
-                          <p className="text-sm text-blue-900">
-                            <strong>Catatan:</strong> {result.notes}
-                          </p>
-                        </div>
-                      )}
+
                     </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -487,37 +445,7 @@ export default function CekStatus() {
                       </motion.div>
                     </div>
 
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg mb-8"
-                    >
-                      <h3 className="text-xl font-bold text-gray-900 mb-4">Status Setup</h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="flex items-center gap-3">
-                          <Clock className="w-5 h-5 text-blue-500" />
-                          <div>
-                            <p className="text-sm text-gray-600">SSL Certificate</p>
-                            <p className="font-semibold text-blue-600">{result.ssl}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Clock className="w-5 h-5 text-blue-500" />
-                          <div>
-                            <p className="text-sm text-gray-600">Backup</p>
-                            <p className="font-semibold text-blue-600">{result.backup}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Server className="w-5 h-5 text-blue-500" />
-                          <div>
-                            <p className="text-sm text-gray-600">Status Server</p>
-                            <p className="font-semibold text-blue-600">Setup Progress</p>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
+
 
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
@@ -548,167 +476,75 @@ export default function CekStatus() {
                   </div>
                 ) : (
                   <>
-                {/* Info Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  {/* Tanggal Aktif */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <Calendar className="w-6 h-6 text-primary" />
-                      <h3 className="text-lg font-bold text-gray-900">Tanggal Aktif</h3>
-                    </div>
-                    <p className="text-2xl font-bold text-primary">{result.tglAktif}</p>
-                  </motion.div>
+                    {/* Info Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                      {/* Tanggal Aktif */}
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
+                      >
+                        <div className="flex items-center gap-3 mb-3">
+                          <Calendar className="w-6 h-6 text-primary" />
+                          <h3 className="text-lg font-bold text-gray-900">Tanggal Aktif</h3>
+                        </div>
+                        <p className="text-2xl font-bold text-primary">{result.tglAktif}</p>
+                      </motion.div>
 
-                  {/* Tanggal Expired */}
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <Clock className="w-6 h-6 text-red-500" />
-                      <h3 className="text-lg font-bold text-gray-900">Tanggal Expired</h3>
+                      {/* Tanggal Expired */}
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
+                      >
+                        <div className="flex items-center gap-3 mb-3">
+                          <Clock className="w-6 h-6 text-red-500" />
+                          <h3 className="text-lg font-bold text-gray-900">Tanggal Expired</h3>
+                        </div>
+                        <p className="text-2xl font-bold text-red-500">{result.tglExpired}</p>
+                        <p className="text-sm text-gray-600 mt-2">
+                          {result.sisaHari > 0 ? (
+                            <span className="text-green-600">Sisa {result.sisaHari} hari</span>
+                          ) : (
+                            <span className="text-red-600">Expired {Math.abs(result.sisaHari)} hari yang lalu</span>
+                          )}
+                        </p>
+                      </motion.div>
                     </div>
-                    <p className="text-2xl font-bold text-red-500">{result.tglExpired}</p>
-                    <p className="text-sm text-gray-600 mt-2">
-                      {result.sisaHari > 0 ? (
-                        <span className="text-green-600">Sisa {result.sisaHari} hari</span>
-                      ) : (
-                        <span className="text-red-600">Expired {Math.abs(result.sisaHari)} hari yang lalu</span>
-                      )}
-                    </p>
-                  </motion.div>
-                </div>
 
-                {/* Storage & Bandwidth */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  {/* Storage */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <Server className="w-6 h-6 text-primary" />
-                      <h3 className="text-lg font-bold text-gray-900">Storage</h3>
-                    </div>
-                    <div className="mb-2">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-gray-600">Used: {result.storage.used}</span>
-                        <span className="text-gray-600">Total: {result.storage.total}</span>
-                      </div>
-                      <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${result.storage.percentage}%` }}
-                          transition={{ duration: 1, delay: 0.5 }}
-                          className={`h-full ${result.storage.percentage > 80 ? 'bg-red-500' :
-                            result.storage.percentage > 60 ? 'bg-yellow-500' :
-                              'bg-green-500'
-                            }`}
-                        />
-                      </div>
-                      <p className="text-sm text-gray-600 mt-2">{result.storage.percentage}% terpakai</p>
-                    </div>
-                  </motion.div>
 
-                  {/* Bandwidth */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg"
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <Globe className="w-6 h-6 text-primary" />
-                      <h3 className="text-lg font-bold text-gray-900">Bandwidth</h3>
-                    </div>
-                    <div className="mb-2">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-gray-600">Used: {result.bandwidth.used}</span>
-                        <span className="text-gray-600">Total: {result.bandwidth.total}</span>
-                      </div>
-                      <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-green-500 w-full" />
-                      </div>
-                      <p className="text-sm text-gray-600 mt-2">Unlimited</p>
-                    </div>
-                  </motion.div>
-                </div>
 
-                {/* Additional Info */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="bg-white rounded-lg border-2 border-gray-200 p-6 shadow-lg mb-8"
-                >
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Informasi Tambahan</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="flex items-center gap-3">
-                      {result.ssl ? (
-                        <CheckCircle className="w-5 h-5 text-green-500" />
-                      ) : (
-                        <XCircle className="w-5 h-5 text-red-500" />
-                      )}
-                      <div>
-                        <p className="text-sm text-gray-600">SSL Certificate</p>
-                        <p className="font-semibold">{result.ssl ? 'Aktif' : 'Nonaktif'}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-500" />
-                      <div>
-                        <p className="text-sm text-gray-600">Backup</p>
-                        <p className="font-semibold">{result.backup}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Server className="w-5 h-5 text-primary" />
-                      <div>
-                        <p className="text-sm text-gray-600">Status Server</p>
-                        <p className="font-semibold text-green-500">Online</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Action Buttons */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="flex flex-col sm:flex-row gap-4"
-                >
-                  {result.sisaHari < 30 && result.sisaHari > 0 && (
-                    <a
-                      href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20perpanjang%20hosting"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 px-6 py-4 bg-green-500 text-white font-bold rounded-lg text-center hover:bg-green-600 hover:shadow-xl transition-all"
+                    {/* Action Buttons */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                      className="flex flex-col sm:flex-row gap-4"
                     >
-                      Perpanjang Sekarang
-                    </a>
-                  )}
-                  {result.status === 'expired' && (
-                    <a
-                      href="https://wa.me/62882008146761?text=Halo,%20hosting%20saya%20expired,%20bagaimana%20cara%20perpanjang?"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 px-6 py-4 bg-red-500 text-white font-bold rounded-lg text-center hover:bg-red-600 hover:shadow-xl transition-all"
-                    >
-                      Hubungi Admin
-                    </a>
-                  )}
-                </motion.div>
-                </>
+                      {result.sisaHari < 30 && result.sisaHari > 0 && (
+                        <a
+                          href="https://wa.me/62882008146761?text=Halo,%20saya%20ingin%20perpanjang%20hosting"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 px-6 py-4 bg-green-500 text-white font-bold rounded-lg text-center hover:bg-green-600 hover:shadow-xl transition-all"
+                        >
+                          Perpanjang Sekarang
+                        </a>
+                      )}
+                      {result.status === 'expired' && (
+                        <a
+                          href="https://wa.me/62882008146761?text=Halo,%20hosting%20saya%20expired,%20bagaimana%20cara%20perpanjang?"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 px-6 py-4 bg-red-500 text-white font-bold rounded-lg text-center hover:bg-red-600 hover:shadow-xl transition-all"
+                        >
+                          Hubungi Admin
+                        </a>
+                      )}
+                    </motion.div>
+                  </>
                 )}
               </>
             )}
@@ -716,48 +552,7 @@ export default function CekStatus() {
         </section>
       )}
 
-      {/* Info Section */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl font-bold text-primary-dark mb-6 text-center">
-            Contoh Domain untuk Testing
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <motion.button
-              onClick={() => { setSearchInput('progres.com'); setSearchType('domain'); }}
-              whileHover={{ scale: 1.05 }}
-              className="p-4 bg-green-50 border-2 border-green-500 rounded-lg hover:border-green-800 transition-all"
-            >
-              <p className="font-bold">progres.com</p>
-              <p className="text-sm">on progress</p>
-            </motion.button>
-            <motion.button
-              onClick={() => { setSearchInput('contoh.com'); setSearchType('domain'); }}
-              whileHover={{ scale: 1.05 }}
-              className="p-4 bg-green-50 border-2 border-green-200 rounded-lg hover:border-green-400 transition-all"
-            >
-              <p className="font-bold text-green-700">contoh.com</p>
-              <p className="text-sm text-green-600">Status: Aktif</p>
-            </motion.button>
-            <motion.button
-              onClick={() => { setSearchInput('testing.my.id'); setSearchType('domain'); }}
-              whileHover={{ scale: 1.05 }}
-              className="p-4 bg-yellow-50 border-2 border-yellow-200 rounded-lg hover:border-yellow-400 transition-all"
-            >
-              <p className="font-bold text-yellow-700">testing.my.id</p>
-              <p className="text-sm text-yellow-600">Status: Akan Expired</p>
-            </motion.button>
-            <motion.button
-              onClick={() => { setSearchInput('example.id'); setSearchType('domain'); }}
-              whileHover={{ scale: 1.05 }}
-              className="p-4 bg-red-50 border-2 border-red-200 rounded-lg hover:border-red-400 transition-all"
-            >
-              <p className="font-bold text-red-700">example.id</p>
-              <p className="text-sm text-red-600">Status: Expired</p>
-            </motion.button>
-          </div>
-        </div>
-      </section>
+
 
       <Footer />
       <ScrollToTop />
