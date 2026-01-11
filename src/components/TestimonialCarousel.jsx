@@ -65,7 +65,7 @@ export default function TestimonialCarousel() {
     if (!emblaApi) return;
     const interval = setInterval(() => {
       emblaApi.scrollNext();
-    }, 5000);
+    }, 7000); // Increased from 5000 to reduce re-render frequency
     return () => clearInterval(interval);
   }, [emblaApi]);
 

@@ -277,7 +277,7 @@ export default function HostingPHP() {
       <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}>
         {/* Animated background gradient orbs */}
         <motion.div 
-          className="absolute w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-3xl"
+          className="absolute w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-2xl"
           animate={{
             x: [0, 80, 0],
             y: [0, -60, 0],
@@ -288,11 +288,11 @@ export default function HostingPHP() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ top: '-15%', left: '-15%' }}
+          style={{ top: '-15%', left: '-15%', willChange: 'transform' }}
         />
 
         <motion.div 
-          className="absolute w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-3xl"
+          className="absolute w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-2xl"
           animate={{
             x: [0, -80, 0],
             y: [0, 60, 0],
@@ -303,11 +303,11 @@ export default function HostingPHP() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ bottom: '-15%', right: '-15%' }}
+          style={{ bottom: '-15%', right: '-15%', willChange: 'transform' }}
         />
 
         <motion.div 
-          className="absolute w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-3xl"
+          className="absolute w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-2xl"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.4, 0.6, 0.4],
@@ -317,28 +317,29 @@ export default function HostingPHP() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', willChange: 'transform, opacity' }}
         />
 
         {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-white/40 rounded-full"
             animate={{
               y: [0, -1000],
-              x: [0, Math.random() * 200 - 100],
+              x: [0, (i % 2 === 0 ? 100 : -100)],
               opacity: [0, 0.8, 0],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: 15 + i * 2,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: i * 0.8,
               ease: "linear"
             }}
             style={{
-              left: `${Math.random() * 100}%`,
+              left: `${(i * 12.5) + 10}%`,
               top: '100%',
+              willChange: 'transform, opacity'
             }}
           />
         ))}
@@ -366,45 +367,41 @@ export default function HostingPHP() {
       <section className="py-4 sm:py-8 px-3 sm:px-6 md:px-8 bg-white border-b-2 border-gray-100">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between relative">
+            {/* Background connecting line */}
+            <div className="absolute top-4 sm:top-6 left-0 right-0 h-1 bg-gray-200 rounded-full" style={{ zIndex: 0 }}>
+              <motion.div
+                className="h-full bg-primary rounded-full"
+                initial={{ width: '0%' }}
+                animate={{
+                  width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`
+                }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+
             {steps.map((step, index) => (
-              <div key={step.number} className="flex items-center flex-1">
-                <div className="flex flex-col items-center flex-1">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-xs sm:text-base transition-all ${currentStep > step.number
-                      ? 'bg-green-500 text-white'
-                      : currentStep === step.number
-                        ? 'bg-primary text-white ring-4 ring-primary/30'
-                        : 'bg-gray-200 text-gray-500'
-                      }`}
-                  >
-                    {currentStep > step.number ? (
-                      <Check className="w-5 h-5 sm:w-6 sm:h-6" />
-                    ) : (
-                      step.number
-                    )}
-                  </motion.div>
-                  <span className={`text-[10px] sm:text-sm mt-1 sm:mt-2 font-medium text-center ${currentStep >= step.number ? 'text-primary' : 'text-gray-400'
-                    }`}>
-                    {step.title}
-                  </span>
-                </div>
-                {index < steps.length - 1 && (
-                  <div className="flex-1 h-1 mx-2 sm:mx-4 mb-6">
-                    <div className="h-full bg-gray-200 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full bg-primary"
-                        initial={{ width: '0%' }}
-                        animate={{
-                          width: currentStep > step.number ? '100%' : '0%'
-                        }}
-                        transition={{ duration: 0.5 }}
-                      />
-                    </div>
-                  </div>
-                )}
+              <div key={step.number} className="flex flex-col items-center flex-1 relative" style={{ zIndex: 1 }}>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-xs sm:text-base transition-all ${currentStep > step.number
+                    ? 'bg-green-500 text-white'
+                    : currentStep === step.number
+                      ? 'bg-primary text-white ring-4 ring-primary/30'
+                      : 'bg-gray-200 text-gray-500'
+                    }`}
+                >
+                  {currentStep > step.number ? (
+                    <Check className="w-5 h-5 sm:w-6 sm:h-6" />
+                  ) : (
+                    step.number
+                  )}
+                </motion.div>
+                <span className={`text-[10px] sm:text-sm mt-1 sm:mt-2 font-medium text-center whitespace-nowrap ${currentStep >= step.number ? 'text-primary' : 'text-gray-400'
+                  }`}>
+                  {step.title}
+                </span>
               </div>
             ))}
           </div>

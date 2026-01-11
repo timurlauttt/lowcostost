@@ -147,7 +147,7 @@ export default function Pricing() {
 
         {/* Animated background gradient orbs */}
         <motion.div
-          className="absolute w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-3xl"
+          className="absolute w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-2xl"
           animate={{
             x: [0, 80, 0],
             y: [0, -60, 0],
@@ -158,11 +158,11 @@ export default function Pricing() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ top: '-15%', left: '-15%' }}
+          style={{ top: '-15%', left: '-15%', willChange: 'transform' }}
         />
 
         <motion.div
-          className="absolute w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-3xl"
+          className="absolute w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-2xl"
           animate={{
             x: [0, -80, 0],
             y: [0, 60, 0],
@@ -173,11 +173,11 @@ export default function Pricing() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ bottom: '-15%', right: '-15%' }}
+          style={{ bottom: '-15%', right: '-15%', willChange: 'transform' }}
         />
 
         <motion.div
-          className="absolute w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-3xl"
+          className="absolute w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-2xl"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.4, 0.6, 0.4],
@@ -187,7 +187,7 @@ export default function Pricing() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', willChange: 'transform, opacity' }}
         />
 
         <div className="max-w-7xl mx-auto text-center relative z-10">

@@ -67,8 +67,8 @@ export default function FeatureGrid() {
               className="group p-6 sm:p-8 bg-gradient-to-br from-gray-50 to-white rounded-lg border-2 border-gray-100 hover:border-primary/30 transition-all duration-300"
             >
               <motion.div
-                whileHover={{ rotate: 360, scale: 1.1 }}
-                transition={{ duration: 0.6 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
                 className={`inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 mb-4 rounded-lg bg-primary p-0.5`}
               >
                 <div className="w-full h-full bg-white rounded-lg flex items-center justify-center">

@@ -83,7 +83,7 @@ export default function TentangKami() {
       <section className="py-20 sm:py-32 px-4 sm:px-6 md:px-8 relative overflow-hidden" style={{ backgroundColor: '#38BDF8' }}>
         {/* Animated background gradient orbs */}
         <motion.div 
-          className="absolute w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-3xl"
+          className="absolute w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-br from-white/10 to-white/5 rounded-full blur-2xl"
           animate={{
             x: [0, 80, 0],
             y: [0, -60, 0],
@@ -94,11 +94,11 @@ export default function TentangKami() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ top: '-15%', left: '-15%' }}
+          style={{ top: '-15%', left: '-15%', willChange: 'transform' }}
         />
         
         <motion.div 
-          className="absolute w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-3xl"
+          className="absolute w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-gradient-to-br from-white/8 to-blue-200/10 rounded-full blur-2xl"
           animate={{
             x: [0, -80, 0],
             y: [0, 60, 0],
@@ -109,11 +109,11 @@ export default function TentangKami() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ bottom: '-15%', right: '-15%' }}
+          style={{ bottom: '-15%', right: '-15%', willChange: 'transform' }}
         />
 
         <motion.div 
-          className="absolute w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-3xl"
+          className="absolute w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-gradient-to-br from-white/15 to-blue-300/20 rounded-full blur-2xl"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.4, 0.6, 0.4],
@@ -123,28 +123,29 @@ export default function TentangKami() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+          style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', willChange: 'transform, opacity' }}
         />
 
         {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-white/40 rounded-full"
             animate={{
               y: [0, -1000],
-              x: [0, Math.random() * 200 - 100],
+              x: [0, (i % 2 === 0 ? 100 : -100)],
               opacity: [0, 0.8, 0],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: 15 + i * 2,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: i * 0.8,
               ease: "linear"
             }}
             style={{
-              left: `${Math.random() * 100}%`,
+              left: `${(i * 12.5) + 10}%`,
               top: '100%',
+              willChange: 'transform, opacity'
             }}
           />
         ))}
